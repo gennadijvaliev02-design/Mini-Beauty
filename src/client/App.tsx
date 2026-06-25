@@ -1,13 +1,18 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import type { Service, Master, Appointment, BookingDate, TimeSlot } from '@/types';
-import { sendBookingToWebhook, type BookingPayload } from './bookingWebhook';
+import { stageBookingPayload, type BookingPayload } from './bookingWebhook';
 import {
   getAvailableSlots,
   getMastersForService,
   loadClientMockData,
   type ClientMockData,
 } from '@/data/clientMockApi';
-import { getTelegramUser, initTelegramWebApp, type TelegramWebApp } from './telegram';
+import {
+  bindTelegramOpenCloseHandlers,
+  initTelegramWebApp,
+  type SavedTelegramUser,
+  type TelegramWebApp,
+} from './telegram';
 import ServicesScreen from './screens/ServicesScreen';
 import ServiceDetailScreen from './screens/ServiceDetailScreen';
 import TimeSelectionScreen from './screens/TimeSelectionScreen';
@@ -43,10 +48,21 @@ export default function ClientApp() {
   const [slots, setSlots] = useState<ClientMockData['slots']>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [telegramWebApp, setTelegramWebApp] = useState<TelegramWebApp | null>(null);
+  const [isTelegram, setIsTelegram] = useState(false);
+  const [telegramUser, setTelegramUser] = useState<SavedTelegramUser>({
+    user_id: null,
+    username: null,
+    first_name: null,
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    setTelegramWebApp(initTelegramWebApp());
+    const session = initTelegramWebApp();
+    setTelegramWebApp(session.webApp);
+    setIsTelegram(session.isTelegram);
+    setTelegramUser(session.user);
+
+    return bindTelegramOpenCloseHandlers(session.webApp);
   }, []);
 
   useEffect(() => {
@@ -115,11 +131,10 @@ export default function ClientApp() {
       return null;
     }
 
-    const telegramUser = getTelegramUser();
-
     return {
-      user_id: telegramUser?.id ?? null,
-      username: telegramUser?.username ?? null,
+      user_id: telegramUser.user_id,
+      username: telegramUser.username,
+      first_name: telegramUser.first_name,
       service_id: bookingData.service.id,
       service_name: bookingData.service.name,
       master_id: bookingData.master.id,
@@ -127,8 +142,10 @@ export default function ClientApp() {
       date: bookingData.date,
       time: bookingData.time,
       price: bookingData.service.price,
+      source: isTelegram ? 'telegram_webapp' : 'browser',
+      created_at: new Date().toISOString(),
     };
-  }, [bookingData]);
+  }, [bookingData, isTelegram, telegramUser]);
 
   const confirmBooking = useCallback(async () => {
     if (isSubmitting || !bookingData.service || !bookingData.master || !bookingPayload) {
@@ -138,7 +155,7 @@ export default function ClientApp() {
     setIsSubmitting(true);
 
     try {
-      await sendBookingToWebhook(bookingPayload);
+      stageBookingPayload(bookingPayload);
 
       const newAppointment: Appointment = {
         id: `a${Date.now()}`,

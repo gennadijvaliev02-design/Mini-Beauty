@@ -27,11 +27,15 @@ interface TelegramMainButton {
   offClick: (callback: () => void) => void;
 }
 
+type TelegramEventName = 'viewportChanged' | 'themeChanged' | 'mainButtonClicked' | 'backButtonClicked';
+
 export interface TelegramWebApp {
   initData?: string;
   initDataUnsafe?: {
     user?: TelegramUser;
   };
+  platform?: string;
+  version?: string;
   viewportHeight?: number;
   viewportStableHeight?: number;
   BackButton?: TelegramBackButton;
@@ -41,6 +45,20 @@ export interface TelegramWebApp {
   setHeaderColor?: (color: string) => void;
   setBackgroundColor?: (color: string) => void;
   disableVerticalSwipes?: () => void;
+  onEvent?: (eventType: TelegramEventName, eventHandler: () => void) => void;
+  offEvent?: (eventType: TelegramEventName, eventHandler: () => void) => void;
+}
+
+export interface SavedTelegramUser {
+  user_id: number | null;
+  username: string | null;
+  first_name: string | null;
+}
+
+export interface TelegramSession {
+  webApp: TelegramWebApp | null;
+  isTelegram: boolean;
+  user: SavedTelegramUser;
 }
 
 declare global {
@@ -54,11 +72,29 @@ declare global {
 export const getTelegramWebApp = (): TelegramWebApp | null =>
   window.Telegram?.WebApp ?? null;
 
-export const initTelegramWebApp = (): TelegramWebApp | null => {
+export const isTelegramWebApp = (): boolean => {
+  const webApp = getTelegramWebApp();
+  return Boolean(webApp?.initData || webApp?.initDataUnsafe?.user || webApp?.platform);
+};
+
+export const normalizeTelegramUser = (user?: TelegramUser): SavedTelegramUser => ({
+  user_id: user?.id ?? null,
+  username: user?.username ?? null,
+  first_name: user?.first_name ?? null,
+});
+
+export const saveTelegramUser = (user: SavedTelegramUser): void => {
+  localStorage.setItem('servicepro.telegram_user', JSON.stringify(user));
+};
+
+export const initTelegramWebApp = (): TelegramSession => {
   const webApp = getTelegramWebApp();
 
   if (!webApp) {
-    return null;
+    const user = normalizeTelegramUser();
+    saveTelegramUser(user);
+    console.info('ServicePro WebApp opened outside Telegram');
+    return { webApp: null, isTelegram: false, user };
   }
 
   webApp.ready();
@@ -72,8 +108,59 @@ export const initTelegramWebApp = (): TelegramWebApp | null => {
     document.documentElement.style.setProperty('--tg-viewport-height', `${viewportHeight}px`);
   }
 
-  return webApp;
+  const user = normalizeTelegramUser(webApp.initDataUnsafe?.user);
+  saveTelegramUser(user);
+  console.info('ServicePro WebApp opened', { isTelegram: isTelegramWebApp(), user });
+
+  return { webApp, isTelegram: isTelegramWebApp(), user };
 };
 
 export const getTelegramUser = (): TelegramUser | null =>
   getTelegramWebApp()?.initDataUnsafe?.user ?? null;
+
+export const getSavedTelegramUser = (): SavedTelegramUser => {
+  const storedUser = localStorage.getItem('servicepro.telegram_user');
+
+  if (!storedUser) {
+    return normalizeTelegramUser(getTelegramUser() ?? undefined);
+  }
+
+  try {
+    return JSON.parse(storedUser) as SavedTelegramUser;
+  } catch {
+    return normalizeTelegramUser(getTelegramUser() ?? undefined);
+  }
+};
+
+export const bindTelegramOpenCloseHandlers = (webApp: TelegramWebApp | null): (() => void) => {
+  const handleOpen = () => {
+    console.info('ServicePro WebApp active');
+  };
+
+  const handleClose = () => {
+    console.info('ServicePro WebApp closing or hidden');
+  };
+
+  const handleVisibilityChange = () => {
+    if (document.visibilityState === 'visible') {
+      handleOpen();
+    } else {
+      handleClose();
+    }
+  };
+
+  const handlePageHide = () => {
+    handleClose();
+  };
+
+  handleOpen();
+  document.addEventListener('visibilitychange', handleVisibilityChange);
+  window.addEventListener('pagehide', handlePageHide);
+  webApp?.onEvent?.('viewportChanged', handleOpen);
+
+  return () => {
+    document.removeEventListener('visibilitychange', handleVisibilityChange);
+    window.removeEventListener('pagehide', handlePageHide);
+    webApp?.offEvent?.('viewportChanged', handleOpen);
+  };
+};
