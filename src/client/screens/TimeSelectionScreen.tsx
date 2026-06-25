@@ -1,22 +1,23 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { ArrowLeft, Clock, CalendarDays, Star } from 'lucide-react';
-import { weekDays, generateTimeSlots } from '@/data/mockData';
-import type { Service, Master } from '@/types';
+import type { BookingDate, Service, Master, TimeSlot } from '@/types';
 
 interface TimeSelectionScreenProps {
   service: Service;
   master: Master;
+  bookingDates: BookingDate[];
+  getSlots: (masterId: string, date: string) => TimeSlot[];
   onBack: () => void;
   onConfirm: (date: string, time: string) => void;
 }
 
-export default function TimeSelectionScreen({ service, master, onBack, onConfirm }: TimeSelectionScreenProps) {
-  const [selectedDay, setSelectedDay] = useState(2); // Today (Wednesday)
+export default function TimeSelectionScreen({ service, master, bookingDates, getSlots, onBack, onConfirm }: TimeSelectionScreenProps) {
+  const [selectedDay, setSelectedDay] = useState(0);
   const [selectedTime, setSelectedTime] = useState<string>('');
 
-  const timeSlots = useMemo(() => generateTimeSlots(), []);
-
-  const selectedDate = weekDays[selectedDay].date;
+  const selectedDate = bookingDates[selectedDay]?.iso ?? '';
+  const selectedDateLabel = bookingDates[selectedDay]?.label ?? '';
+  const timeSlots = selectedDate ? getSlots(master.id, selectedDate) : [];
 
   const handleConfirm = () => {
     if (selectedTime) {
@@ -75,11 +76,11 @@ export default function TimeSelectionScreen({ service, master, onBack, onConfirm
           <h2 className="text-base font-bold">Выберите дату</h2>
         </div>
         <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
-          {weekDays.map((day, index) => {
+          {bookingDates.map((day, index) => {
             const isSelected = selectedDay === index;
             return (
               <button
-                key={day.short}
+                key={day.id}
                 onClick={() => {
                   setSelectedDay(index);
                   setSelectedTime('');
@@ -94,7 +95,7 @@ export default function TimeSelectionScreen({ service, master, onBack, onConfirm
                   {day.short}
                 </span>
                 <span className={`text-lg font-bold mt-1 ${isSelected ? 'text-white' : ''}`}>
-                  {day.date.split('.')[0]}
+                  {day.day}
                 </span>
               </button>
             );
@@ -104,9 +105,13 @@ export default function TimeSelectionScreen({ service, master, onBack, onConfirm
 
       {/* ===== TIME SLOTS ===== */}
       <div className="px-5 pt-6">
-        <h2 className="text-base font-bold mb-3">Доступное время</h2>
+        <h2 className="text-base font-bold mb-3">Доступное время{selectedDateLabel ? ` · ${selectedDateLabel}` : ''}</h2>
         <div className="grid grid-cols-3 gap-2">
-          {timeSlots.map((slot) => {
+          {timeSlots.length === 0 ? (
+            <div className="col-span-3 p-5 rounded-2xl bg-[var(--surface-1)] border border-white/[0.04] text-sm text-[var(--text-secondary)] text-center">
+              На выбранную дату свободного времени нет.
+            </div>
+          ) : timeSlots.map((slot) => {
             const isSelected = selectedTime === slot.time;
             return (
               <button

@@ -1,16 +1,18 @@
 import { useState, useRef, useEffect } from 'react';
 import { Clock, ChevronRight, Sparkles } from 'lucide-react';
-import { services, promoBanners, serviceCategories } from '@/data/mockData';
+import { promoBanners } from '@/data/mockData';
 import type { Service } from '@/types';
 
 interface ServicesScreenProps {
+  services: Service[];
   onServiceSelect: (service: Service) => void;
 }
 
-export default function ServicesScreen({ onServiceSelect }: ServicesScreenProps) {
+export default function ServicesScreen({ services, onServiceSelect }: ServicesScreenProps) {
   const [activeCategory, setActiveCategory] = useState('Все');
   const [bannerIndex, setBannerIndex] = useState(0);
   const bannerRef = useRef<HTMLDivElement>(null);
+  const serviceCategories = ['Все', ...Array.from(new Set(services.map(service => service.category)))];
 
   const filteredServices = activeCategory === 'Все'
     ? services

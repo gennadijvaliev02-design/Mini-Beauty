@@ -1,5 +1,11 @@
-import { useState, useCallback } from 'react';
-import type { Service, Master, Appointment } from '@/types';
+import { useState, useCallback, useEffect } from 'react';
+import type { Service, Master, Appointment, BookingDate, TimeSlot } from '@/types';
+import {
+  getAvailableSlots,
+  getMastersForService,
+  loadClientMockData,
+  type ClientMockData,
+} from '@/data/clientMockApi';
 import ServicesScreen from './screens/ServicesScreen';
 import ServiceDetailScreen from './screens/ServiceDetailScreen';
 import TimeSelectionScreen from './screens/TimeSelectionScreen';
@@ -13,6 +19,7 @@ export interface BookingData {
   service: Service | null;
   master: Master | null;
   date: string;
+  dateLabel: string;
   time: string;
 }
 
@@ -20,13 +27,40 @@ const initialBookingData: BookingData = {
   service: null,
   master: null,
   date: '',
+  dateLabel: '',
   time: '',
 };
 
 export default function ClientApp() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('services');
   const [bookingData, setBookingData] = useState<BookingData>(initialBookingData);
+  const [services, setServices] = useState<Service[]>([]);
+  const [masters, setMasters] = useState<Master[]>([]);
+  const [bookingDates, setBookingDates] = useState<BookingDate[]>([]);
   const [appointments, setAppointments] = useState<Appointment[]>([]);
+  const [slots, setSlots] = useState<ClientMockData['slots']>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    loadClientMockData().then(data => {
+      if (!isMounted) {
+        return;
+      }
+
+      setServices(data.services);
+      setMasters(data.masters);
+      setBookingDates(data.bookingDates);
+      setAppointments(data.appointments);
+      setSlots(data.slots);
+      setIsLoading(false);
+    });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const navigate = useCallback((screen: Screen) => {
     setCurrentScreen(screen);
@@ -34,7 +68,7 @@ export default function ClientApp() {
   }, []);
 
   const selectService = useCallback((service: Service) => {
-    setBookingData(prev => ({ ...prev, service }));
+    setBookingData({ ...initialBookingData, service });
     setCurrentScreen('serviceDetail');
     window.scrollTo(0, 0);
   }, []);
@@ -46,10 +80,11 @@ export default function ClientApp() {
   }, []);
 
   const selectDateTime = useCallback((date: string, time: string) => {
-    setBookingData(prev => ({ ...prev, date, time }));
+    const dateLabel = bookingDates.find(bookingDate => bookingDate.iso === date)?.label ?? date;
+    setBookingData(prev => ({ ...prev, date, dateLabel, time }));
     setCurrentScreen('confirmation');
     window.scrollTo(0, 0);
-  }, []);
+  }, [bookingDates]);
 
   const confirmBooking = useCallback(() => {
     if (bookingData.service && bookingData.master) {
@@ -67,6 +102,9 @@ export default function ClientApp() {
         status: 'confirmed',
       };
       setAppointments(prev => [newAppointment, ...prev]);
+      setBookingData(initialBookingData);
+      setCurrentScreen('myAppointments');
+      window.scrollTo(0, 0);
     }
   }, [bookingData]);
 
@@ -84,14 +122,30 @@ export default function ClientApp() {
     );
   }, []);
 
+  const getSlots = useCallback((masterId: string, date: string): TimeSlot[] => (
+    getAvailableSlots(slots, appointments, masterId, date)
+  ), [appointments, slots]);
+
   const renderScreen = () => {
+    if (isLoading) {
+      return (
+        <div className="min-h-[100dvh] flex items-center justify-center">
+          <div className="flex flex-col items-center gap-3">
+            <div className="w-8 h-8 border-2 border-emerald-500/30 border-t-emerald-400 rounded-full animate-spin" />
+            <p className="text-sm text-[var(--text-muted)]">Загрузка данных</p>
+          </div>
+        </div>
+      );
+    }
+
     switch (currentScreen) {
       case 'services':
-        return <ServicesScreen onServiceSelect={selectService} />;
+        return <ServicesScreen services={services} onServiceSelect={selectService} />;
       case 'serviceDetail':
         return bookingData.service ? (
           <ServiceDetailScreen
             service={bookingData.service}
+            masters={getMastersForService(masters, bookingData.service.id)}
             onBack={() => navigate('services')}
             onMasterSelect={selectMaster}
           />
@@ -101,6 +155,8 @@ export default function ClientApp() {
           <TimeSelectionScreen
             service={bookingData.service}
             master={bookingData.master}
+            bookingDates={bookingDates}
+            getSlots={getSlots}
             onBack={() => setCurrentScreen('serviceDetail')}
             onConfirm={selectDateTime}
           />
@@ -121,7 +177,7 @@ export default function ClientApp() {
           />
         );
       default:
-        return <ServicesScreen onServiceSelect={selectService} />;
+        return <ServicesScreen services={services} onServiceSelect={selectService} />;
     }
   };
 

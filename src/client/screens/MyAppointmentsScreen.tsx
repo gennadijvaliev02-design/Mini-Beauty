@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Calendar, Clock, Star, CheckCircle, XCircle, MessageSquare, Send } from 'lucide-react';
-import { myAppointments as initialAppointments } from '@/data/mockData';
 import type { Appointment } from '@/types';
 
 interface MyAppointmentsScreenProps {
@@ -16,7 +15,7 @@ const statusConfig = {
   cancelled: { label: 'Отменено', color: 'text-red-400 bg-red-500/10', icon: XCircle },
 };
 
-export default function MyAppointmentsScreen({ appointments: newAppointments, onAddReview }: MyAppointmentsScreenProps) {
+export default function MyAppointmentsScreen({ appointments, onAddReview }: MyAppointmentsScreenProps) {
   const [filter, setFilter] = useState<FilterStatus>('all');
   const [reviewModal, setReviewModal] = useState<{ open: boolean; appointment: Appointment | null }>({
     open: false,
@@ -25,12 +24,9 @@ export default function MyAppointmentsScreen({ appointments: newAppointments, on
   const [rating, setRating] = useState(0);
   const [reviewText, setReviewText] = useState('');
 
-  // Combine initial and new appointments
-  const allAppointments = [...newAppointments, ...initialAppointments];
-
   const filtered = filter === 'all'
-    ? allAppointments
-    : allAppointments.filter(a => a.status === filter);
+    ? appointments
+    : appointments.filter(a => a.status === filter);
 
   const handleOpenReview = (appointment: Appointment) => {
     setReviewModal({ open: true, appointment });
@@ -53,7 +49,7 @@ export default function MyAppointmentsScreen({ appointments: newAppointments, on
       <header className="sticky top-0 z-40 glass-strong safe-top">
         <div className="px-5 py-4">
           <h1 className="text-lg font-bold">Мои записи</h1>
-          <p className="text-xs text-[var(--text-muted)]">{allAppointments.length} записей</p>
+          <p className="text-xs text-[var(--text-muted)]">{appointments.length} записей</p>
         </div>
       </header>
 

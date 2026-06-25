@@ -84,6 +84,7 @@ export const masters: Master[] = [
     specialization: 'Стилист-универсал',
     rating: 4.9,
     reviewsCount: 127,
+    serviceIds: ['1', '5'],
     schedule: {
       mon: { start: '10:00', end: '20:00' },
       tue: { start: '10:00', end: '20:00' },
@@ -101,6 +102,7 @@ export const masters: Master[] = [
     specialization: 'Колорист',
     rating: 4.8,
     reviewsCount: 98,
+    serviceIds: ['1', '2', '5'],
     schedule: {
       mon: { start: '10:00', end: '20:00' },
       tue: { start: '10:00', end: '20:00' },
@@ -118,6 +120,7 @@ export const masters: Master[] = [
     specialization: 'Мастер маникюра',
     rating: 4.9,
     reviewsCount: 156,
+    serviceIds: ['3', '4'],
     schedule: {
       mon: { start: '09:00', end: '19:00' },
       tue: { start: '09:00', end: '19:00' },
@@ -135,6 +138,7 @@ export const masters: Master[] = [
     specialization: 'Бровист / Лэшмейкер',
     rating: 4.7,
     reviewsCount: 84,
+    serviceIds: ['6', '7'],
     schedule: {
       mon: { start: '11:00', end: '21:00' },
       tue: { start: '11:00', end: '21:00' },
@@ -152,6 +156,7 @@ export const masters: Master[] = [
     specialization: 'Косметолог',
     rating: 4.8,
     reviewsCount: 112,
+    serviceIds: ['8'],
     schedule: {
       mon: { start: '10:00', end: '20:00' },
       tue: { start: '10:00', end: '20:00' },
@@ -258,15 +263,15 @@ export const weekDays = [
 ];
 
 export const generateTimeSlots = (): { time: string; available: boolean }[] => {
-  const slots = [];
+  const slots: { time: string; available: boolean }[] = [];
   const startHour = 9;
   const endHour = 21;
   
   for (let hour = startHour; hour < endHour; hour++) {
     for (const minute of [0, 30]) {
       const time = `${hour.toString().padStart(2, '0')}:${minute.toString().padStart(2, '0')}`;
-      // Random availability
-      const available = Math.random() > 0.35;
+      const slotIndex = slots.length;
+      const available = ![2, 5, 9, 14, 18, 21].includes(slotIndex);
       slots.push({ time, available });
     }
   }

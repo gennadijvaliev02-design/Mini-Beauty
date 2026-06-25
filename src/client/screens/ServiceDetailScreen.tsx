@@ -1,14 +1,14 @@
 import { ArrowLeft, Clock, Star, ChevronRight } from 'lucide-react';
-import { masters } from '@/data/mockData';
 import type { Service, Master } from '@/types';
 
 interface ServiceDetailScreenProps {
   service: Service;
+  masters: Master[];
   onBack: () => void;
   onMasterSelect: (master: Master) => void;
 }
 
-export default function ServiceDetailScreen({ service, onBack, onMasterSelect }: ServiceDetailScreenProps) {
+export default function ServiceDetailScreen({ service, masters, onBack, onMasterSelect }: ServiceDetailScreenProps) {
   return (
     <div className="animate-slideInRight">
       {/* ===== HERO IMAGE ===== */}
@@ -60,7 +60,11 @@ export default function ServiceDetailScreen({ service, onBack, onMasterSelect }:
       <div className="px-5 pt-5 pb-8">
         <h2 className="text-lg font-bold mb-4">Выберите мастера</h2>
         <div className="space-y-3">
-          {masters.map((master) => (
+          {masters.length === 0 ? (
+            <div className="p-5 rounded-2xl bg-[var(--surface-1)] border border-white/[0.04] text-sm text-[var(--text-secondary)]">
+              Для этой услуги пока нет доступных мастеров.
+            </div>
+          ) : masters.map((master) => (
             <button
               key={master.id}
               onClick={() => onMasterSelect(master)}

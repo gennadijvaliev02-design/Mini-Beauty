@@ -16,6 +16,7 @@ export interface Master {
   specialization: string;
   rating: number;
   reviewsCount: number;
+  serviceIds: string[];
   schedule: WorkSchedule;
 }
 
@@ -26,6 +27,14 @@ export interface WorkSchedule {
 export interface TimeSlot {
   time: string;
   available: boolean;
+}
+
+export interface BookingDate {
+  id: string;
+  iso: string;
+  short: string;
+  day: string;
+  label: string;
 }
 
 export interface Appointment {
