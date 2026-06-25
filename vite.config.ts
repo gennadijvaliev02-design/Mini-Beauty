@@ -21,6 +21,17 @@ export default defineConfig({
         client: path.resolve(__dirname, 'index.html'),
         admin: path.resolve(__dirname, 'admin.html'),
       },
+      output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: (assetInfo) => {
+          if (assetInfo.name?.endsWith('.css')) {
+            return 'assets/style.css'
+          }
+
+          return 'assets/[name][extname]'
+        },
+      },
     },
   },
 });

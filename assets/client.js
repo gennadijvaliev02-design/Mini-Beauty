@@ -1,0 +1,2 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/main.js","assets/mockData.js","assets/style.css"])))=>i.map(i=>d[i]);
+import{_ as t}from"./preload-helper.js";if(location.hostname.endsWith("github.io")){const e=document.createElement("link");e.rel="stylesheet",e.href="/Mini-Beauty/assets/style.css",document.head.appendChild(e),await t(()=>import("/Mini-Beauty/assets/main.js"),[])}else await t(()=>import("./main.js"),__vite__mapDeps([0,1,2]));
