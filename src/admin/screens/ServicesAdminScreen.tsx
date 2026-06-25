@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Plus, Search, Pencil, Trash2, X, Clock, Upload } from 'lucide-react';
 import { services as initialServices } from '@/data/mockData';
+import { publicAsset } from '@/lib/assets';
 import type { Service } from '@/types';
 
 export default function ServicesAdminScreen() {
@@ -37,7 +38,7 @@ export default function ServicesAdminScreen() {
         price: Number(formData.price),
         duration: Number(formData.duration),
         category: formData.category,
-        image: '/assets/service-haircut.jpg',
+        image: publicAsset('assets/service-haircut.jpg'),
       };
       setServices(prev => [newService, ...prev]);
     }

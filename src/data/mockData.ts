@@ -1,4 +1,5 @@
 import type { Service, Master, Appointment, RevenueData, AdminAppointment } from '@/types';
+import { publicAsset } from '@/lib/assets';
 
 export const services: Service[] = [
   {
@@ -7,7 +8,7 @@ export const services: Service[] = [
     description: 'Стильная стрижка с учётом формы лица и типа волос. Включает мытьё головы, укладку и консультацию по уходу.',
     price: 2500,
     duration: 60,
-    image: '/assets/service-haircut.jpg',
+    image: publicAsset('assets/service-haircut.jpg'),
     category: 'Волосы'
   },
   {
@@ -16,7 +17,7 @@ export const services: Service[] = [
     description: 'Полное окрашивание волос с использованием премиальных красителей. Включает консультацию по цвету и уход после процедуры.',
     price: 5500,
     duration: 150,
-    image: '/assets/service-coloring.jpg',
+    image: publicAsset('assets/service-coloring.jpg'),
     category: 'Волосы'
   },
   {
@@ -25,7 +26,7 @@ export const services: Service[] = [
     description: 'Классический маникюр с нанесением долговременного лака или гель-лака. Включает обработку кутикулы и выравнивание ногтевой пластины.',
     price: 1800,
     duration: 75,
-    image: '/assets/service-manicure.jpg',
+    image: publicAsset('assets/service-manicure.jpg'),
     category: 'Ногти'
   },
   {
@@ -34,7 +35,7 @@ export const services: Service[] = [
     description: 'Комплексный SPA-педикюр с пилингом, маской и массажем стоп. Идеальный уход для красоты и здоровья ногтей.',
     price: 2200,
     duration: 90,
-    image: '/assets/service-pedicure.jpg',
+    image: publicAsset('assets/service-pedicure.jpg'),
     category: 'Ногти'
   },
   {
@@ -43,7 +44,7 @@ export const services: Service[] = [
     description: 'Праздничная или повседневная укладка с использованием профессиональных стайлинговых средств. Локоны, гладкость или объём.',
     price: 1500,
     duration: 45,
-    image: '/assets/service-styling.jpg',
+    image: publicAsset('assets/service-styling.jpg'),
     category: 'Волосы'
   },
   {
@@ -52,7 +53,7 @@ export const services: Service[] = [
     description: 'Процедура для создания эффекта длинных и густых ресниц без наращивания. Результат сохраняется до 8 недель.',
     price: 1200,
     duration: 60,
-    image: '/assets/service-lashes.jpg',
+    image: publicAsset('assets/service-lashes.jpg'),
     category: 'Брови и ресницы'
   },
   {
@@ -61,7 +62,7 @@ export const services: Service[] = [
     description: 'Идеальная форма бровей с учётом типа лица. Включает окрашивание хной или краской и укладку специальным воском.',
     price: 900,
     duration: 40,
-    image: '/assets/service-brows.jpg',
+    image: publicAsset('assets/service-brows.jpg'),
     category: 'Брови и ресницы'
   },
   {
@@ -70,7 +71,7 @@ export const services: Service[] = [
     description: 'Глубокое очищение, пилинг и увлажнение кожи лица с использованием профессиональной косметики. Расслабляющий массаж включён.',
     price: 3200,
     duration: 75,
-    image: '/assets/service-facial.jpg',
+    image: publicAsset('assets/service-facial.jpg'),
     category: 'Уход'
   }
 ];
@@ -79,7 +80,7 @@ export const masters: Master[] = [
   {
     id: 'm1',
     name: 'Анна Козлова',
-    avatar: '/assets/master-anna.jpg',
+    avatar: publicAsset('assets/master-anna.jpg'),
     specialization: 'Стилист-универсал',
     rating: 4.9,
     reviewsCount: 127,
@@ -96,7 +97,7 @@ export const masters: Master[] = [
   {
     id: 'm2',
     name: 'Мария Соколова',
-    avatar: '/assets/master-maria.jpg',
+    avatar: publicAsset('assets/master-maria.jpg'),
     specialization: 'Колорист',
     rating: 4.8,
     reviewsCount: 98,
@@ -113,7 +114,7 @@ export const masters: Master[] = [
   {
     id: 'm3',
     name: 'Елена Петрова',
-    avatar: '/assets/master-elena.jpg',
+    avatar: publicAsset('assets/master-elena.jpg'),
     specialization: 'Мастер маникюра',
     rating: 4.9,
     reviewsCount: 156,
@@ -130,7 +131,7 @@ export const masters: Master[] = [
   {
     id: 'm4',
     name: 'Дарья Морозова',
-    avatar: '/assets/master-daria.jpg',
+    avatar: publicAsset('assets/master-daria.jpg'),
     specialization: 'Бровист / Лэшмейкер',
     rating: 4.7,
     reviewsCount: 84,
@@ -147,7 +148,7 @@ export const masters: Master[] = [
   {
     id: 'm5',
     name: 'София Волкова',
-    avatar: '/assets/master-sofia.jpg',
+    avatar: publicAsset('assets/master-sofia.jpg'),
     specialization: 'Косметолог',
     rating: 4.8,
     reviewsCount: 112,
@@ -168,10 +169,10 @@ export const myAppointments: Appointment[] = [
     id: 'a1',
     serviceId: '1',
     serviceName: 'Женская стрижка',
-    serviceImage: '/assets/service-haircut.jpg',
+    serviceImage: publicAsset('assets/service-haircut.jpg'),
     masterId: 'm1',
     masterName: 'Анна Козлова',
-    masterAvatar: '/assets/master-anna.jpg',
+    masterAvatar: publicAsset('assets/master-anna.jpg'),
     date: '2026-06-28',
     time: '14:00',
     price: 2500,
@@ -181,10 +182,10 @@ export const myAppointments: Appointment[] = [
     id: 'a2',
     serviceId: '3',
     serviceName: 'Маникюр + покрытие',
-    serviceImage: '/assets/service-manicure.jpg',
+    serviceImage: publicAsset('assets/service-manicure.jpg'),
     masterId: 'm3',
     masterName: 'Елена Петрова',
-    masterAvatar: '/assets/master-elena.jpg',
+    masterAvatar: publicAsset('assets/master-elena.jpg'),
     date: '2026-06-15',
     time: '11:00',
     price: 1800,
@@ -196,10 +197,10 @@ export const myAppointments: Appointment[] = [
     id: 'a3',
     serviceId: '6',
     serviceName: 'Ламинирование ресниц',
-    serviceImage: '/assets/service-lashes.jpg',
+    serviceImage: publicAsset('assets/service-lashes.jpg'),
     masterId: 'm4',
     masterName: 'Дарья Морозова',
-    masterAvatar: '/assets/master-daria.jpg',
+    masterAvatar: publicAsset('assets/master-daria.jpg'),
     date: '2026-06-10',
     time: '16:30',
     price: 1200,
@@ -209,10 +210,10 @@ export const myAppointments: Appointment[] = [
     id: 'a4',
     serviceId: '8',
     serviceName: 'Спа-уход для лица',
-    serviceImage: '/assets/service-facial.jpg',
+    serviceImage: publicAsset('assets/service-facial.jpg'),
     masterId: 'm5',
     masterName: 'София Волкова',
-    masterAvatar: '/assets/master-sofia.jpg',
+    masterAvatar: publicAsset('assets/master-sofia.jpg'),
     date: '2026-06-05',
     time: '13:00',
     price: 3200,
