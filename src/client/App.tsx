@@ -1,11 +1,13 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useMemo } from 'react';
 import type { Service, Master, Appointment, BookingDate, TimeSlot } from '@/types';
+import { sendBookingToWebhook, type BookingPayload } from './bookingWebhook';
 import {
   getAvailableSlots,
   getMastersForService,
   loadClientMockData,
   type ClientMockData,
 } from '@/data/clientMockApi';
+import { getTelegramUser, initTelegramWebApp, type TelegramWebApp } from './telegram';
 import ServicesScreen from './screens/ServicesScreen';
 import ServiceDetailScreen from './screens/ServiceDetailScreen';
 import TimeSelectionScreen from './screens/TimeSelectionScreen';
@@ -40,6 +42,12 @@ export default function ClientApp() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [slots, setSlots] = useState<ClientMockData['slots']>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [telegramWebApp, setTelegramWebApp] = useState<TelegramWebApp | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    setTelegramWebApp(initTelegramWebApp());
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -86,8 +94,52 @@ export default function ClientApp() {
     window.scrollTo(0, 0);
   }, [bookingDates]);
 
-  const confirmBooking = useCallback(() => {
-    if (bookingData.service && bookingData.master) {
+  const goBack = useCallback(() => {
+    if (currentScreen === 'serviceDetail') {
+      navigate('services');
+      return;
+    }
+
+    if (currentScreen === 'timeSelection') {
+      navigate('serviceDetail');
+      return;
+    }
+
+    if (currentScreen === 'confirmation') {
+      navigate('timeSelection');
+    }
+  }, [currentScreen, navigate]);
+
+  const bookingPayload = useMemo<BookingPayload | null>(() => {
+    if (!bookingData.service || !bookingData.master || !bookingData.date || !bookingData.time) {
+      return null;
+    }
+
+    const telegramUser = getTelegramUser();
+
+    return {
+      user_id: telegramUser?.id ?? null,
+      username: telegramUser?.username ?? null,
+      service_id: bookingData.service.id,
+      service_name: bookingData.service.name,
+      master_id: bookingData.master.id,
+      master_name: bookingData.master.name,
+      date: bookingData.date,
+      time: bookingData.time,
+      price: bookingData.service.price,
+    };
+  }, [bookingData]);
+
+  const confirmBooking = useCallback(async () => {
+    if (isSubmitting || !bookingData.service || !bookingData.master || !bookingPayload) {
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      await sendBookingToWebhook(bookingPayload);
+
       const newAppointment: Appointment = {
         id: `a${Date.now()}`,
         serviceId: bookingData.service.id,
@@ -105,8 +157,10 @@ export default function ClientApp() {
       setBookingData(initialBookingData);
       setCurrentScreen('myAppointments');
       window.scrollTo(0, 0);
+    } finally {
+      setIsSubmitting(false);
     }
-  }, [bookingData]);
+  }, [bookingData, bookingPayload, isSubmitting]);
 
   const goHome = useCallback(() => {
     setBookingData(initialBookingData);
@@ -126,10 +180,62 @@ export default function ClientApp() {
     getAvailableSlots(slots, appointments, masterId, date)
   ), [appointments, slots]);
 
+  useEffect(() => {
+    const backButton = telegramWebApp?.BackButton;
+    if (!backButton) {
+      return;
+    }
+
+    const shouldShowBack = currentScreen === 'serviceDetail' ||
+      currentScreen === 'timeSelection' ||
+      currentScreen === 'confirmation';
+
+    if (shouldShowBack) {
+      backButton.show();
+      backButton.onClick(goBack);
+    } else {
+      backButton.hide();
+    }
+
+    return () => {
+      backButton.offClick(goBack);
+    };
+  }, [currentScreen, goBack, telegramWebApp]);
+
+  useEffect(() => {
+    const mainButton = telegramWebApp?.MainButton;
+    if (!mainButton) {
+      return;
+    }
+
+    if (currentScreen !== 'confirmation' || !bookingPayload) {
+      mainButton.hide();
+      return;
+    }
+
+    mainButton.setText(`Подтвердить · ${bookingPayload.price.toLocaleString('ru')} ₽`);
+    mainButton.show();
+
+    if (isSubmitting) {
+      mainButton.disable();
+      mainButton.showProgress(true);
+    } else {
+      mainButton.enable();
+      mainButton.hideProgress();
+    }
+
+    mainButton.onClick(confirmBooking);
+
+    return () => {
+      mainButton.offClick(confirmBooking);
+      mainButton.hideProgress();
+    };
+  }, [bookingPayload, confirmBooking, currentScreen, isSubmitting, telegramWebApp]);
+
   const renderScreen = () => {
     if (isLoading) {
       return (
-        <div className="min-h-[100dvh] flex items-center justify-center">
+        <div className="min-h-[var(--tg-viewport-height,100dvh)] flex items-center justify-center">
           <div className="flex flex-col items-center gap-3">
             <div className="w-8 h-8 border-2 border-emerald-500/30 border-t-emerald-400 rounded-full animate-spin" />
             <p className="text-sm text-[var(--text-muted)]">Загрузка данных</p>
@@ -157,7 +263,7 @@ export default function ClientApp() {
             master={bookingData.master}
             bookingDates={bookingDates}
             getSlots={getSlots}
-            onBack={() => setCurrentScreen('serviceDetail')}
+            onBack={() => navigate('serviceDetail')}
             onConfirm={selectDateTime}
           />
         ) : null;
@@ -167,6 +273,8 @@ export default function ClientApp() {
             booking={bookingData}
             onConfirm={confirmBooking}
             onHome={goHome}
+            isSubmitting={isSubmitting}
+            usesTelegramMainButton={Boolean(telegramWebApp?.MainButton)}
           />
         ) : null;
       case 'myAppointments':
@@ -184,7 +292,7 @@ export default function ClientApp() {
   const showNav = currentScreen === 'services' || currentScreen === 'myAppointments';
 
   return (
-    <div className="min-h-[100dvh] bg-[var(--surface-0)] flex justify-center">
+    <div className="min-h-[var(--tg-viewport-height,100dvh)] bg-[var(--surface-0)] flex justify-center">
       <div className="w-full max-w-[430px] relative">
         <main className="pb-20">
           {renderScreen()}

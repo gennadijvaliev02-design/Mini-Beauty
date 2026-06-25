@@ -3,11 +3,19 @@ import type { BookingData } from '../App';
 
 interface ConfirmationScreenProps {
   booking: BookingData;
-  onConfirm: () => void;
+  onConfirm: () => void | Promise<void>;
   onHome: () => void;
+  isSubmitting: boolean;
+  usesTelegramMainButton: boolean;
 }
 
-export default function ConfirmationScreen({ booking, onConfirm, onHome }: ConfirmationScreenProps) {
+export default function ConfirmationScreen({
+  booking,
+  onConfirm,
+  onHome,
+  isSubmitting,
+  usesTelegramMainButton,
+}: ConfirmationScreenProps) {
   const handleConfirm = () => {
     onConfirm();
   };
@@ -93,14 +101,21 @@ export default function ConfirmationScreen({ booking, onConfirm, onHome }: Confi
 
       {/* ===== CONFIRM BUTTON ===== */}
       <div className="px-5 pt-6 space-y-3">
-        <button
-          onClick={handleConfirm}
-          className="w-full py-4 rounded-2xl font-semibold text-sm transition-all duration-200 btn-press flex items-center justify-center gap-2 bg-emerald-500 text-white shadow-lg shadow-emerald-500/25 hover:bg-emerald-600"
-        >
-          <Check size={18} />
-          Подтвердить запись
-          <ArrowRight size={16} />
-        </button>
+        {!usesTelegramMainButton && (
+          <button
+            onClick={handleConfirm}
+            disabled={isSubmitting}
+            className={`w-full py-4 rounded-2xl font-semibold text-sm transition-all duration-200 btn-press flex items-center justify-center gap-2 ${
+              isSubmitting
+                ? 'bg-[var(--surface-3)] text-[var(--text-disabled)] cursor-not-allowed'
+                : 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25 hover:bg-emerald-600'
+            }`}
+          >
+            <Check size={18} />
+            {isSubmitting ? 'Подтверждаем запись' : 'Подтвердить запись'}
+            <ArrowRight size={16} />
+          </button>
+        )}
 
         <button
           onClick={onHome}

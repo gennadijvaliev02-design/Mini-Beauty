@@ -15,7 +15,7 @@
   <body>
     <div id="root"></div>
     <script type="module">
-      if (location.hostname.endsWith('github.io')) {
+      if (location.hostname.endsWith('github.io') || location.search.includes('static=1')) {
         const styles = document.createElement('link')
         styles.rel = 'stylesheet'
         styles.href = '/Mini-Beauty/assets/style.css'
