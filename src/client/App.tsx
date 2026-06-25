@@ -1,6 +1,6 @@
 import { useState, useCallback, useEffect, useMemo } from 'react';
 import type { Service, Master, Appointment, BookingDate, TimeSlot } from '@/types';
-import { stageBookingPayload, type BookingPayload } from './bookingWebhook';
+import { sendBookingToWebhook, type BookingPayload, type BookingWebhookResult } from './bookingWebhook';
 import {
   getAvailableSlots,
   getMastersForService,
@@ -18,9 +18,17 @@ import ServiceDetailScreen from './screens/ServiceDetailScreen';
 import TimeSelectionScreen from './screens/TimeSelectionScreen';
 import ConfirmationScreen from './screens/ConfirmationScreen';
 import MyAppointmentsScreen from './screens/MyAppointmentsScreen';
+import BookingResultScreen from './screens/BookingResultScreen';
 import BottomNav from './components/BottomNav';
 
-export type Screen = 'services' | 'serviceDetail' | 'timeSelection' | 'confirmation' | 'myAppointments';
+export type Screen =
+  'services' |
+  'serviceDetail' |
+  'timeSelection' |
+  'confirmation' |
+  'bookingSuccess' |
+  'bookingError' |
+  'myAppointments';
 
 export interface BookingData {
   service: Service | null;
@@ -55,6 +63,8 @@ export default function ClientApp() {
     first_name: null,
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [bookingResult, setBookingResult] = useState<BookingWebhookResult | null>(null);
+  const [bookingError, setBookingError] = useState<string>('');
 
   useEffect(() => {
     const session = initTelegramWebApp();
@@ -123,6 +133,11 @@ export default function ClientApp() {
 
     if (currentScreen === 'confirmation') {
       navigate('timeSelection');
+      return;
+    }
+
+    if (currentScreen === 'bookingSuccess' || currentScreen === 'bookingError') {
+      navigate('services');
     }
   }, [currentScreen, navigate]);
 
@@ -153,9 +168,11 @@ export default function ClientApp() {
     }
 
     setIsSubmitting(true);
+    setBookingError('');
+    setBookingResult(null);
 
     try {
-      stageBookingPayload(bookingPayload);
+      const webhookResult = await sendBookingToWebhook(bookingPayload);
 
       const newAppointment: Appointment = {
         id: `a${Date.now()}`,
@@ -171,8 +188,14 @@ export default function ClientApp() {
         status: 'confirmed',
       };
       setAppointments(prev => [newAppointment, ...prev]);
+      setBookingResult(webhookResult);
       setBookingData(initialBookingData);
-      setCurrentScreen('myAppointments');
+      setCurrentScreen('bookingSuccess');
+      window.scrollTo(0, 0);
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Не удалось создать запись';
+      setBookingError(message);
+      setCurrentScreen('bookingError');
       window.scrollTo(0, 0);
     } finally {
       setIsSubmitting(false);
@@ -205,7 +228,9 @@ export default function ClientApp() {
 
     const shouldShowBack = currentScreen === 'serviceDetail' ||
       currentScreen === 'timeSelection' ||
-      currentScreen === 'confirmation';
+      currentScreen === 'confirmation' ||
+      currentScreen === 'bookingSuccess' ||
+      currentScreen === 'bookingError';
 
     if (shouldShowBack) {
       backButton.show();
@@ -294,6 +319,30 @@ export default function ClientApp() {
             usesTelegramMainButton={Boolean(telegramWebApp?.MainButton)}
           />
         ) : null;
+      case 'bookingSuccess':
+        return (
+          <BookingResultScreen
+            status="success"
+            title="Запись создана"
+            message={bookingResult?.message || 'Мы получили вашу запись и скоро подтвердим детали.'}
+            actionLabel="Мои записи"
+            onAction={() => navigate('myAppointments')}
+            secondaryLabel="На главную"
+            onSecondaryAction={goHome}
+          />
+        );
+      case 'bookingError':
+        return (
+          <BookingResultScreen
+            status="error"
+            title="Запись не создана"
+            message={bookingError || 'Не удалось отправить запись. Проверьте подключение и попробуйте еще раз.'}
+            actionLabel="Попробовать снова"
+            onAction={() => navigate('confirmation')}
+            secondaryLabel="Выбрать другое время"
+            onSecondaryAction={() => navigate('timeSelection')}
+          />
+        );
       case 'myAppointments':
         return (
           <MyAppointmentsScreen
