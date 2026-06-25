@@ -6,6 +6,12 @@ The Mini App sends booking payloads as `POST` JSON to the URL from:
 VITE_BOOKING_WEBHOOK_URL=https://your-n8n.example/webhook/servicepro-booking
 ```
 
+Current production URL:
+
+```bash
+VITE_BOOKING_WEBHOOK_URL=https://anxietycoach.online/webhook/servicepro-booking
+```
+
 For local testing:
 
 ```bash

@@ -1,0 +1,188 @@
+{
+  "id": "serviceproBookingWebhook",
+  "name": "ServicePro Booking Webhook",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "servicepro-booking",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        240,
+        300
+      ],
+      "id": "7e5d29a8-9be7-4ec3-8503-d8464abbe32cf",
+      "name": "Webhook: Booking POST",
+      "webhookId": "3f3cfbfb-2f79-4dfa-aa4d-1bdb0d9adbc2"
+    },
+    {
+      "parameters": {
+        "jsCode": "const body = $input.first().json.body ?? {};\n\nconst requiredFields = [\n  'user_id',\n  'username',\n  'first_name',\n  'service_id',\n  'service_name',\n  'master_id',\n  'master_name',\n  'date',\n  'time',\n  'price',\n];\n\nconst isEmpty = (value) => value === undefined || value === null || value === '';\nconst missing = requiredFields.filter((field) => isEmpty(body[field]));\n\nconst payload = {\n  user_id: body.user_id,\n  username: body.username,\n  first_name: body.first_name,\n  service_id: body.service_id,\n  service_name: body.service_name,\n  master_id: body.master_id,\n  master_name: body.master_name,\n  date: body.date,\n  time: body.time,\n  price: Number(body.price),\n};\n\nconst valid = missing.length === 0 && Number.isFinite(payload.price);\nif (missing.length === 0 && !Number.isFinite(payload.price)) {\n  missing.push('price');\n}\n\nreturn [{\n  json: {\n    valid,\n    missing,\n    payload,\n    response: valid\n      ? { success: true, message: 'Booking received' }\n      : { success: false, message: 'Missing required fields', missing },\n  },\n}];\n\n// TODO: PostgreSQL insert will be added after this validation step in the next stage.\n// TODO: Payment status validation will be added before sending final success responses."
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        500,
+        300
+      ],
+      "id": "cffbb6a9-1cc3-487c-8375-750951a7c6b2",
+      "name": "Validate Booking Payload"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "c5cfeb63-9cfb-486c-939d-fc603305e6ed",
+              "leftValue": "={{ $json.valid }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        760,
+        300
+      ],
+      "id": "1eb2187d-0c76-4939-a701-bd4c25d4b91f",
+      "name": "IF: Payload Valid"
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $env.SERVICEPRO_ADMIN_CHAT_ID }}",
+        "text": "=🗓 Новая запись ServicePro\n\n👤 Клиент: {{ $('Validate Booking Payload').first().json.payload.first_name }}\n🔗 Username: @{{ $('Validate Booking Payload').first().json.payload.username }}\n🆔 Telegram ID: {{ $('Validate Booking Payload').first().json.payload.user_id }}\n\n💅 Услуга: {{ $('Validate Booking Payload').first().json.payload.service_name }}\n👩‍💼 Мастер: {{ $('Validate Booking Payload').first().json.payload.master_name }}\n\n📅 Дата: {{ $('Validate Booking Payload').first().json.payload.date }}\n⏰ Время: {{ $('Validate Booking Payload').first().json.payload.time }}\n💰 Цена: {{ $('Validate Booking Payload').first().json.payload.price }} ₽",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1300,
+        180
+      ],
+      "id": "3389c4c3-e697-4248-9901-e6eab430ad98",
+      "name": "Telegram: Notify Admin",
+      "credentials": {
+        "telegramApi": {
+          "name": "ServicePro Telegram Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.response }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1040,
+        180
+      ],
+      "id": "7050a0d8-5db9-494e-9a30-87a815dd492c",
+      "name": "Respond: Success"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ $json.response }}",
+        "options": {
+          "responseCode": 400
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1040,
+        420
+      ],
+      "id": "d8f85451-b862-4f4b-9a4f-ed37de208b41",
+      "name": "Respond: Missing Fields"
+    }
+  ],
+  "connections": {
+    "Webhook: Booking POST": {
+      "main": [
+        [
+          {
+            "node": "Validate Booking Payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Validate Booking Payload": {
+      "main": [
+        [
+          {
+            "node": "IF: Payload Valid",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF: Payload Valid": {
+      "main": [
+        [
+          {
+            "node": "Respond: Success",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond: Missing Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond: Success": {
+      "main": [
+        [
+          {
+            "node": "Telegram: Notify Admin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "versionId": "f6b837d2-cf31-4775-8012-7916fd56f163",
+  "meta": {
+    "templateCredsSetupCompleted": false
+  }
+}
