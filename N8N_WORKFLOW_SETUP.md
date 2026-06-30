@@ -25,7 +25,7 @@ PostgreSQL, payments, and the admin app are intentionally not connected in this 
 Set n8n environment variable:
 
 ```bash
-SERVICEPRO_ADMIN_CHAT_ID=6380640298
+SERVICEPRO_ADMIN_CHAT_ID=63806
 ```
 
 Then restart n8n so expressions can read `$env.SERVICEPRO_ADMIN_CHAT_ID`.
