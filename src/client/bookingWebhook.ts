@@ -49,8 +49,8 @@ export const sendBookingToWebhook = async (payload: BookingPayload): Promise<Boo
     throw new BookingWebhookError('Webhook URL is not configured');
   }
 
-  // TODO: на стороне n8n здесь позже будут подключены PostgreSQL и создание записи в базе.
-  // TODO: после подключения платежей payload нужно дополнить статусом оплаты и payment_id.
+  // TODO: n8n will later connect PostgreSQL and appointment creation here.
+  // TODO: after payments are connected, add payment status and payment_id to the payload.
   const response = await fetch(config.bookingWebhookUrl, {
     method: 'POST',
     headers: {
