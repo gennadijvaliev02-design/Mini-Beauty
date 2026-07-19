@@ -64,7 +64,7 @@ export default function TimeSelectionScreen({ service, master, bookingDates, get
               <Clock size={14} />
               <span className="text-sm font-bold">{service.duration} мин</span>
             </div>
-            <span className="text-xs text-[var(--text-muted)]">{service.price.toLocaleString('ru')} ₽</span>
+            <span className="text-xs text-[var(--text-muted)]">{service.price.toLocaleString('en-US')} ₽</span>
           </div>
         </div>
       </div>
@@ -73,7 +73,7 @@ export default function TimeSelectionScreen({ service, master, bookingDates, get
       <div className="px-5 pt-6">
         <div className="flex items-center gap-2 mb-3">
           <CalendarDays size={18} className="text-emerald-400" />
-          <h2 className="text-base font-bold">Выберите дату</h2>
+          <h2 className="text-base font-bold">Choose a date</h2>
         </div>
         <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
           {bookingDates.map((day, index) => {
@@ -105,11 +105,11 @@ export default function TimeSelectionScreen({ service, master, bookingDates, get
 
       {/* ===== TIME SLOTS ===== */}
       <div className="px-5 pt-6">
-        <h2 className="text-base font-bold mb-3">Доступное время{selectedDateLabel ? ` · ${selectedDateLabel}` : ''}</h2>
+        <h2 className="text-base font-bold mb-3">Available times{selectedDateLabel ? ` · ${selectedDateLabel}` : ''}</h2>
         <div className="grid grid-cols-3 gap-2">
           {timeSlots.length === 0 ? (
             <div className="col-span-3 p-5 rounded-2xl bg-[var(--surface-1)] border border-white/[0.04] text-sm text-[var(--text-secondary)] text-center">
-              На выбранную дату свободного времени нет.
+              No available times on this date.
             </div>
           ) : timeSlots.map((slot) => {
             const isSelected = selectedTime === slot.time;
@@ -144,7 +144,7 @@ export default function TimeSelectionScreen({ service, master, bookingDates, get
               : 'bg-[var(--surface-3)] text-[var(--text-disabled)] cursor-not-allowed'
           }`}
         >
-          {selectedTime ? `Подтвердить запись · ${service.price.toLocaleString('ru')} ₽` : 'Выберите время'}
+          {selectedTime ? `Confirm booking · ${service.price.toLocaleString('en-US')} ₽` : 'Choose a time'}
         </button>
       </div>
     </div>
