@@ -9,12 +9,12 @@ interface ServicesScreenProps {
 }
 
 export default function ServicesScreen({ services, onServiceSelect }: ServicesScreenProps) {
-  const [activeCategory, setActiveCategory] = useState('Все');
+  const [activeCategory, setActiveCategory] = useState('All');
   const [bannerIndex, setBannerIndex] = useState(0);
   const bannerRef = useRef<HTMLDivElement>(null);
-  const serviceCategories = ['Все', ...Array.from(new Set(services.map(service => service.category)))];
+  const serviceCategories = ['All', ...Array.from(new Set(services.map(service => service.category)))];
 
-  const filteredServices = activeCategory === 'Все'
+  const filteredServices = activeCategory === 'All'
     ? services
     : services.filter(s => s.category === activeCategory);
 
@@ -46,7 +46,7 @@ export default function ServicesScreen({ services, onServiceSelect }: ServicesSc
             </div>
             <div>
               <h1 className="text-lg font-bold tracking-tight">ServicePro</h1>
-              <p className="text-[11px] text-[var(--text-muted)] -mt-0.5">Салон красоты</p>
+              <p className="text-[11px] text-[var(--text-muted)] -mt-0.5">Beauty Salon</p>
             </div>
           </div>
           <div className="w-8 h-8 rounded-full bg-[var(--surface-3)] flex items-center justify-center">
@@ -111,8 +111,8 @@ export default function ServicesScreen({ services, onServiceSelect }: ServicesSc
       {/* ===== SERVICES GRID ===== */}
       <section className="px-5 pt-5 pb-8">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-bold">Услуги</h2>
-          <span className="text-xs text-[var(--text-muted)]">{filteredServices.length} услуг</span>
+          <h2 className="text-xl font-bold">Services</h2>
+          <span className="text-xs text-[var(--text-muted)]">{filteredServices.length} services</span>
         </div>
         <div className="grid grid-cols-2 gap-3">
           {filteredServices.map((service) => (
@@ -136,7 +136,7 @@ export default function ServicesScreen({ services, onServiceSelect }: ServicesSc
                 <div className="absolute bottom-0 left-0 right-0 p-3">
                   <h3 className="text-white font-semibold text-sm leading-tight">{service.name}</h3>
                   <div className="flex items-center justify-between mt-2">
-                    <span className="text-emerald-400 font-bold text-sm">{service.price.toLocaleString('ru')} ₽</span>
+                    <span className="text-emerald-400 font-bold text-sm">{service.price.toLocaleString('en-US')} ₽</span>
                     <div className="w-7 h-7 rounded-full bg-emerald-500/20 flex items-center justify-center">
                       <ChevronRight size={14} className="text-emerald-400" />
                     </div>
