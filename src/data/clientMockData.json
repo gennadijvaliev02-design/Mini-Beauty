@@ -2,83 +2,83 @@
   "services": [
     {
       "id": "svc_haircut",
-      "name": "Женская стрижка",
-      "description": "Стильная стрижка с учётом формы лица и типа волос. Включает мытьё головы, укладку и консультацию по уходу.",
+      "name": "Women's haircut",
+      "description": "A stylish haircut tailored to your face shape and hair type. Includes a wash, styling and care consultation.",
       "price": 2500,
       "duration": 60,
       "image": "assets/service-haircut.jpg",
-      "category": "Волосы"
+      "category": "Hair"
     },
     {
       "id": "svc_coloring",
-      "name": "Окрашивание",
-      "description": "Полное окрашивание волос с использованием премиальных красителей. Включает консультацию по цвету и уход после процедуры.",
+      "name": "Hair coloring",
+      "description": "Full hair coloring with premium products. Includes color consultation and aftercare guidance.",
       "price": 5500,
       "duration": 150,
       "image": "assets/service-coloring.jpg",
-      "category": "Волосы"
+      "category": "Hair"
     },
     {
       "id": "svc_manicure",
-      "name": "Маникюр + покрытие",
-      "description": "Классический маникюр с нанесением долговременного лака или гель-лака. Включает обработку кутикулы и выравнивание ногтевой пластины.",
+      "name": "Manicure + gel polish",
+      "description": "Classic manicure with long-lasting polish or gel polish. Includes cuticle care and nail plate leveling.",
       "price": 1800,
       "duration": 75,
       "image": "assets/service-manicure.jpg",
-      "category": "Ногти"
+      "category": "Nails"
     },
     {
       "id": "svc_pedicure",
-      "name": "Педикюр SPA",
-      "description": "Комплексный SPA-педикюр с пилингом, маской и массажем стоп. Идеальный уход для красоты и здоровья ногтей.",
+      "name": "SPA pedicure",
+      "description": "A complete spa pedicure with exfoliation, a mask and foot massage. Ideal care for healthy, beautiful nails.",
       "price": 2200,
       "duration": 90,
       "image": "assets/service-pedicure.jpg",
-      "category": "Ногти"
+      "category": "Nails"
     },
     {
       "id": "svc_styling",
-      "name": "Укладка волос",
-      "description": "Праздничная или повседневная укладка с использованием профессиональных стайлинговых средств. Локоны, гладкость или объём.",
+      "name": "Hair styling",
+      "description": "A professional blowout or styling for any occasion. Choose from waves, sleek looks or added volume.",
       "price": 1500,
       "duration": 45,
       "image": "assets/service-styling.jpg",
-      "category": "Волосы"
+      "category": "Hair"
     },
     {
       "id": "svc_lashes",
-      "name": "Ламинирование ресниц",
-      "description": "Процедура для создания эффекта длинных и густых ресниц без наращивания. Результат сохраняется до 8 недель.",
+      "name": "Lash lift",
+      "description": "A treatment that creates longer, fuller-looking lashes without extensions. Results last up to 8 weeks.",
       "price": 1200,
       "duration": 60,
       "image": "assets/service-lashes.jpg",
-      "category": "Брови и ресницы"
+      "category": "Brows & lashes"
     },
     {
       "id": "svc_brows",
-      "name": "Коррекция бровей",
-      "description": "Идеальная форма бровей с учётом типа лица. Включает окрашивание хной или краской и укладку специальным воском.",
+      "name": "Brow shaping",
+      "description": "A brow shape tailored to your face. Includes tinting with henna or color and styling with brow wax.",
       "price": 900,
       "duration": 40,
       "image": "assets/service-brows.jpg",
-      "category": "Брови и ресницы"
+      "category": "Brows & lashes"
     },
     {
       "id": "svc_facial",
-      "name": "Спа-уход для лица",
-      "description": "Глубокое очищение, пилинг и увлажнение кожи лица с использованием профессиональной косметики. Расслабляющий массаж включён.",
+      "name": "Facial spa treatment",
+      "description": "Deep cleansing, exfoliation and hydration with professional skincare products. A relaxing facial massage is included.",
       "price": 3200,
       "duration": 75,
       "image": "assets/service-facial.jpg",
-      "category": "Уход"
+      "category": "Skincare"
     }
   ],
   "masters": [
     {
       "id": "mst_anna",
-      "name": "Анна Козлова",
+      "name": "Anna Kozlova",
       "avatar": "assets/master-anna.jpg",
-      "specialization": "Стилист-универсал",
+      "specialization": "Hair stylist",
       "rating": 4.9,
       "reviewsCount": 127,
       "serviceIds": ["svc_haircut", "svc_styling"],
@@ -94,9 +94,9 @@
     },
     {
       "id": "mst_maria",
-      "name": "Мария Соколова",
+      "name": "Maria Sokolova",
       "avatar": "assets/master-maria.jpg",
-      "specialization": "Колорист",
+      "specialization": "Colorist",
       "rating": 4.8,
       "reviewsCount": 98,
       "serviceIds": ["svc_coloring", "svc_haircut", "svc_styling"],
@@ -112,9 +112,9 @@
     },
     {
       "id": "mst_elena",
-      "name": "Елена Петрова",
+      "name": "Elena Petrova",
       "avatar": "assets/master-elena.jpg",
-      "specialization": "Мастер маникюра",
+      "specialization": "Nail artist",
       "rating": 4.9,
       "reviewsCount": 156,
       "serviceIds": ["svc_manicure", "svc_pedicure"],
@@ -130,9 +130,9 @@
     },
     {
       "id": "mst_daria",
-      "name": "Дарья Морозова",
+      "name": "Daria Morozova",
       "avatar": "assets/master-daria.jpg",
-      "specialization": "Бровист / Лэшмейкер",
+      "specialization": "Brow & lash artist",
       "rating": 4.7,
       "reviewsCount": 84,
       "serviceIds": ["svc_lashes", "svc_brows"],
@@ -148,9 +148,9 @@
     },
     {
       "id": "mst_sofia",
-      "name": "София Волкова",
+      "name": "Sofia Volkova",
       "avatar": "assets/master-sofia.jpg",
-      "specialization": "Косметолог",
+      "specialization": "Esthetician",
       "rating": 4.8,
       "reviewsCount": 112,
       "serviceIds": ["svc_facial"],
@@ -166,22 +166,22 @@
     }
   ],
   "bookingDates": [
-    { "id": "date_2026_06_25", "iso": "2026-06-25", "short": "Чт", "day": "25", "label": "25 июня" },
-    { "id": "date_2026_06_26", "iso": "2026-06-26", "short": "Пт", "day": "26", "label": "26 июня" },
-    { "id": "date_2026_06_27", "iso": "2026-06-27", "short": "Сб", "day": "27", "label": "27 июня" },
-    { "id": "date_2026_06_28", "iso": "2026-06-28", "short": "Вс", "day": "28", "label": "28 июня" },
-    { "id": "date_2026_06_29", "iso": "2026-06-29", "short": "Пн", "day": "29", "label": "29 июня" },
-    { "id": "date_2026_06_30", "iso": "2026-06-30", "short": "Вт", "day": "30", "label": "30 июня" },
-    { "id": "date_2026_07_01", "iso": "2026-07-01", "short": "Ср", "day": "1", "label": "1 июля" }
+    { "id": "date_2026_06_25", "iso": "2026-06-25", "short": "Thu", "day": "25", "label": "25 June" },
+    { "id": "date_2026_06_26", "iso": "2026-06-26", "short": "Fri", "day": "26", "label": "26 June" },
+    { "id": "date_2026_06_27", "iso": "2026-06-27", "short": "Sat", "day": "27", "label": "27 June" },
+    { "id": "date_2026_06_28", "iso": "2026-06-28", "short": "Sun", "day": "28", "label": "28 June" },
+    { "id": "date_2026_06_29", "iso": "2026-06-29", "short": "Mon", "day": "29", "label": "29 June" },
+    { "id": "date_2026_06_30", "iso": "2026-06-30", "short": "Tue", "day": "30", "label": "30 June" },
+    { "id": "date_2026_07_01", "iso": "2026-07-01", "short": "Wed", "day": "1", "label": "1 July" }
   ],
   "appointments": [
     {
       "id": "apt_seed_1",
       "serviceId": "svc_haircut",
-      "serviceName": "Женская стрижка",
+      "serviceName": "Women's haircut",
       "serviceImage": "assets/service-haircut.jpg",
       "masterId": "mst_anna",
-      "masterName": "Анна Козлова",
+      "masterName": "Anna Kozlova",
       "masterAvatar": "assets/master-anna.jpg",
       "date": "2026-06-28",
       "time": "14:00",
@@ -191,25 +191,25 @@
     {
       "id": "apt_seed_2",
       "serviceId": "svc_manicure",
-      "serviceName": "Маникюр + покрытие",
+      "serviceName": "Manicure + gel polish",
       "serviceImage": "assets/service-manicure.jpg",
       "masterId": "mst_elena",
-      "masterName": "Елена Петрова",
+      "masterName": "Elena Petrova",
       "masterAvatar": "assets/master-elena.jpg",
       "date": "2026-06-15",
       "time": "11:00",
       "price": 1800,
       "status": "completed",
       "rating": 5,
-      "review": "Отличный мастер! Очень довольна результатом, маникюр держится уже третью неделю."
+      "review": "Excellent professional! I am very happy with the result — my manicure has lasted three weeks already."
     },
     {
       "id": "apt_seed_3",
       "serviceId": "svc_lashes",
-      "serviceName": "Ламинирование ресниц",
+      "serviceName": "Lash lift",
       "serviceImage": "assets/service-lashes.jpg",
       "masterId": "mst_daria",
-      "masterName": "Дарья Морозова",
+      "masterName": "Daria Morozova",
       "masterAvatar": "assets/master-daria.jpg",
       "date": "2026-06-10",
       "time": "16:30",
@@ -219,17 +219,17 @@
     {
       "id": "apt_seed_4",
       "serviceId": "svc_facial",
-      "serviceName": "Спа-уход для лица",
+      "serviceName": "Facial spa treatment",
       "serviceImage": "assets/service-facial.jpg",
       "masterId": "mst_sofia",
-      "masterName": "София Волкова",
+      "masterName": "Sofia Volkova",
       "masterAvatar": "assets/master-sofia.jpg",
       "date": "2026-06-05",
       "time": "13:00",
       "price": 3200,
       "status": "completed",
       "rating": 4,
-      "review": "Хорошая процедура, кожа стала заметно увлажнённой."
+      "review": "Great treatment — my skin feels noticeably more hydrated."
     }
   ],
   "slots": [
