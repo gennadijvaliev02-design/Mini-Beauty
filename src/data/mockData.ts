@@ -6,7 +6,7 @@ export const services: Service[] = [
     id: '1',
     name: 'Women's haircut',
     description: 'A stylish haircut tailored to your face shape and hair type. Includes a wash, styling and care consultation.',
-    price: 2500,
+    price: 45,
     duration: 60,
     image: publicAsset('assets/service-haircut.jpg'),
     category: 'Hair'
@@ -15,7 +15,7 @@ export const services: Service[] = [
     id: '2',
     name: 'Hair coloring',
     description: 'Full hair coloring with premium products. Includes color consultation and aftercare guidance.',
-    price: 5500,
+    price: 95,
     duration: 150,
     image: publicAsset('assets/service-coloring.jpg'),
     category: 'Hair'
@@ -24,7 +24,7 @@ export const services: Service[] = [
     id: '3',
     name: 'Manicure + gel polish',
     description: 'Classic manicure with long-lasting polish or gel polish. Includes cuticle care and nail plate leveling.',
-    price: 1800,
+    price: 35,
     duration: 75,
     image: publicAsset('assets/service-manicure.jpg'),
     category: 'Nails'
@@ -33,7 +33,7 @@ export const services: Service[] = [
     id: '4',
     name: 'SPA pedicure',
     description: 'A complete spa pedicure with exfoliation, a mask and foot massage. Ideal care for healthy, beautiful nails.',
-    price: 2200,
+    price: 40,
     duration: 90,
     image: publicAsset('assets/service-pedicure.jpg'),
     category: 'Nails'
@@ -42,7 +42,7 @@ export const services: Service[] = [
     id: '5',
     name: 'Hair styling',
     description: 'A professional blowout or styling for any occasion. Choose from waves, sleek looks or added volume.',
-    price: 1500,
+    price: 30,
     duration: 45,
     image: publicAsset('assets/service-styling.jpg'),
     category: 'Hair'
@@ -51,7 +51,7 @@ export const services: Service[] = [
     id: '6',
     name: 'Lash lift',
     description: 'A treatment that creates longer, fuller-looking lashes without extensions. Results last up to 8 weeks.',
-    price: 1200,
+    price: 22,
     duration: 60,
     image: publicAsset('assets/service-lashes.jpg'),
     category: 'Brows & lashes'
@@ -60,7 +60,7 @@ export const services: Service[] = [
     id: '7',
     name: 'Brow shaping',
     description: 'A brow shape tailored to your face. Includes tinting with henna or color and styling with brow wax.',
-    price: 900,
+    price: 18,
     duration: 40,
     image: publicAsset('assets/service-brows.jpg'),
     category: 'Brows & lashes'
@@ -69,7 +69,7 @@ export const services: Service[] = [
     id: '8',
     name: 'Facial spa treatment',
     description: 'Deep cleansing, exfoliation and hydration with professional skincare products. A relaxing facial massage is included.',
-    price: 3200,
+    price: 60,
     duration: 75,
     image: publicAsset('assets/service-facial.jpg'),
     category: 'Skincare'
@@ -180,7 +180,7 @@ export const myAppointments: Appointment[] = [
     masterAvatar: publicAsset('assets/master-anna.jpg'),
     date: '2026-06-28',
     time: '14:00',
-    price: 2500,
+    price: 45,
     status: 'confirmed',
   },
   {
@@ -193,7 +193,7 @@ export const myAppointments: Appointment[] = [
     masterAvatar: publicAsset('assets/master-elena.jpg'),
     date: '2026-06-15',
     time: '11:00',
-    price: 1800,
+    price: 35,
     status: 'completed',
     rating: 5,
     review: 'Excellent professional! I am very happy with the result — my manicure has lasted three weeks already.'
@@ -208,7 +208,7 @@ export const myAppointments: Appointment[] = [
     masterAvatar: publicAsset('assets/master-daria.jpg'),
     date: '2026-06-10',
     time: '16:30',
-    price: 1200,
+    price: 22,
     status: 'cancelled',
   },
   {
@@ -221,7 +221,7 @@ export const myAppointments: Appointment[] = [
     masterAvatar: publicAsset('assets/master-sofia.jpg'),
     date: '2026-06-05',
     time: '13:00',
-    price: 3200,
+    price: 60,
     status: 'completed',
     rating: 4,
     review: 'Great treatment — my skin feels noticeably more hydrated.'
@@ -291,14 +291,14 @@ export const revenueData: RevenueData[] = [
 ];
 
 export const adminAppointments: AdminAppointment[] = [
-  { id: 'r1', clientName: 'Irina K.', clientPhone: '+7 (999) 123-45-67', service: 'Women's haircut', master: 'Anna K.', date: '25.06.2026', time: '10:00', status: 'confirmed', price: 2500 },
-  { id: 'r2', clientName: 'Olga M.', clientPhone: '+7 (999) 234-56-78', service: 'Hair coloring', master: 'Maria S.', date: '25.06.2026', time: '11:00', status: 'confirmed', price: 5500 },
-  { id: 'r3', clientName: 'Natalia P.', clientPhone: '+7 (999) 345-67-89', service: 'Manicure + gel polish', master: 'Elena P.', date: '25.06.2026', time: '12:30', status: 'confirmed', price: 1800 },
-  { id: 'r4', clientName: 'Ekaterina V.', clientPhone: '+7 (999) 456-78-90', service: 'Hair styling', master: 'Anna K.', date: '25.06.2026', time: '14:00', status: 'completed', price: 1500 },
-  { id: 'r5', clientName: 'Anna S.', clientPhone: '+7 (999) 567-89-01', service: 'SPA pedicure', master: 'Elena P.', date: '25.06.2026', time: '15:30', status: 'confirmed', price: 2200 },
-  { id: 'r6', clientName: 'Marina D.', clientPhone: '+7 (999) 678-90-12', service: 'Lash lift', master: 'Daria M.', date: '25.06.2026', time: '16:00', status: 'cancelled', price: 1200 },
-  { id: 'r7', clientName: 'Tatiana L.', clientPhone: '+7 (999) 789-01-23', service: 'Facial spa treatment', master: 'Sofia V.', date: '26.06.2026', time: '10:00', status: 'confirmed', price: 3200 },
-  { id: 'r8', clientName: 'Svetlana R.', clientPhone: '+7 (999) 890-12-34', service: 'Brow shaping', master: 'Daria M.', date: '26.06.2026', time: '11:30', status: 'confirmed', price: 900 },
+  { id: 'r1', clientName: 'Irina K.', clientPhone: '+7 (999) 123-45-67', service: 'Women's haircut', master: 'Anna K.', date: '25.06.2026', time: '10:00', status: 'confirmed', price: 45 },
+  { id: 'r2', clientName: 'Olga M.', clientPhone: '+7 (999) 234-56-78', service: 'Hair coloring', master: 'Maria S.', date: '25.06.2026', time: '11:00', status: 'confirmed', price: 95 },
+  { id: 'r3', clientName: 'Natalia P.', clientPhone: '+7 (999) 345-67-89', service: 'Manicure + gel polish', master: 'Elena P.', date: '25.06.2026', time: '12:30', status: 'confirmed', price: 35 },
+  { id: 'r4', clientName: 'Ekaterina V.', clientPhone: '+7 (999) 456-78-90', service: 'Hair styling', master: 'Anna K.', date: '25.06.2026', time: '14:00', status: 'completed', price: 30 },
+  { id: 'r5', clientName: 'Anna S.', clientPhone: '+7 (999) 567-89-01', service: 'SPA pedicure', master: 'Elena P.', date: '25.06.2026', time: '15:30', status: 'confirmed', price: 40 },
+  { id: 'r6', clientName: 'Marina D.', clientPhone: '+7 (999) 678-90-12', service: 'Lash lift', master: 'Daria M.', date: '25.06.2026', time: '16:00', status: 'cancelled', price: 22 },
+  { id: 'r7', clientName: 'Tatiana L.', clientPhone: '+7 (999) 789-01-23', service: 'Facial spa treatment', master: 'Sofia V.', date: '26.06.2026', time: '10:00', status: 'confirmed', price: 60 },
+  { id: 'r8', clientName: 'Svetlana R.', clientPhone: '+7 (999) 890-12-34', service: 'Brow shaping', master: 'Daria M.', date: '26.06.2026', time: '11:30', status: 'confirmed', price: 18 },
 ];
 
 export const dashboardStats = {
