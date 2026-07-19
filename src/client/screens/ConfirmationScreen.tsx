@@ -93,7 +93,7 @@ export default function ConfirmationScreen({
           </div>
 
           <div className="pt-4 border-t border-white/[0.04] flex items-center justify-between">
-            <span className="text-[var(--text-secondary)]">Стоимость service</span>
+            <span className="text-[var(--text-secondary)]">Service price</span>
             <span className="text-xl font-bold">{booking.service?.price.toLocaleString('en-US')} ₽</span>
           </div>
         </div>
