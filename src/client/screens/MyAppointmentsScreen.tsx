@@ -85,7 +85,7 @@ export default function MyAppointmentsScreen({ appointments, onAddReview }: MyAp
               <Calendar size={28} className="text-[var(--text-muted)]" />
             </div>
             <p className="text-[var(--text-secondary)] text-sm">No appointments yet</p>
-            <p className="text-[var(--text-muted)] text-xs mt-1">Выберите servicesу и запишитесь</p>
+            <p className="text-[var(--text-muted)] text-xs mt-1">Выберите service и запишитесь</p>
           </div>
         ) : (
           filtered.map((appointment) => {
