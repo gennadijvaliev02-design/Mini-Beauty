@@ -193,7 +193,7 @@ export default function ClientApp() {
       setCurrentScreen('bookingSuccess');
       window.scrollTo(0, 0);
     } catch (error) {
-      const message = error instanceof Error ? error.message : 'Не удалось создать запись';
+      const message = error instanceof Error ? error.message : 'Could not create the appointment';
       setBookingError(message);
       setCurrentScreen('bookingError');
       window.scrollTo(0, 0);
@@ -255,7 +255,7 @@ export default function ClientApp() {
       return;
     }
 
-    mainButton.setText(`Подтвердить · ${bookingPayload.price.toLocaleString('ru')} ₽`);
+    mainButton.setText(`Подтвердить · ${bookingPayload.price.toLocaleString('en-US')} ₽`);
     mainButton.show();
 
     if (isSubmitting) {
@@ -280,7 +280,7 @@ export default function ClientApp() {
         <div className="min-h-[var(--tg-viewport-height,100dvh)] flex items-center justify-center">
           <div className="flex flex-col items-center gap-3">
             <div className="w-8 h-8 border-2 border-emerald-500/30 border-t-emerald-400 rounded-full animate-spin" />
-            <p className="text-sm text-[var(--text-muted)]">Загрузка данных</p>
+            <p className="text-sm text-[var(--text-muted)]">Loading</p>
           </div>
         </div>
       );
@@ -323,11 +323,11 @@ export default function ClientApp() {
         return (
           <BookingResultScreen
             status="success"
-            title="Запись создана"
-            message={bookingResult?.message || 'Мы получили вашу запись и скоро подтвердим детали.'}
-            actionLabel="Мои записи"
+            title="Appointment confirmed"
+            message={bookingResult?.message || 'We received your request and will confirm the details soon.'}
+            actionLabel="My appointments"
             onAction={() => navigate('myAppointments')}
-            secondaryLabel="На главную"
+            secondaryLabel="Home"
             onSecondaryAction={goHome}
           />
         );
@@ -335,11 +335,11 @@ export default function ClientApp() {
         return (
           <BookingResultScreen
             status="error"
-            title="Запись не создана"
-            message={bookingError || 'Не удалось отправить запись. Проверьте подключение и попробуйте еще раз.'}
-            actionLabel="Попробовать снова"
+            title="Appointment not created"
+            message={bookingError || 'Could not submit the appointment. Check your connection and try again.'}
+            actionLabel="Try again"
             onAction={() => navigate('confirmation')}
-            secondaryLabel="Выбрать другое время"
+            secondaryLabel="Choose another time"
             onSecondaryAction={() => navigate('timeSelection')}
           />
         );
