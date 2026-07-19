@@ -37,7 +37,7 @@ export default function ServiceDetailScreen({ service, masters, onBack, onMaster
           <div className="flex items-center gap-4 mt-3">
             <div className="flex items-center gap-1.5">
               <Clock size={16} className="text-emerald-400" />
-              <span className="text-sm text-[var(--text-secondary)]">{service.duration} мин</span>
+              <span className="text-sm text-[var(--text-secondary)]">{service.duration} min</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="text-emerald-400 font-bold text-lg">{service.price.toLocaleString('en-US')} ₽</span>
@@ -62,7 +62,7 @@ export default function ServiceDetailScreen({ service, masters, onBack, onMaster
         <div className="space-y-3">
           {masters.length === 0 ? (
             <div className="p-5 rounded-2xl bg-[var(--surface-1)] border border-white/[0.04] text-sm text-[var(--text-secondary)]">
-              Для этой servicesи пока нет доступных мастеров.
+              Для этой service пока нет доступных мастеров.
             </div>
           ) : masters.map((master) => (
             <button
