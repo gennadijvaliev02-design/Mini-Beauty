@@ -10,9 +10,9 @@ interface MyAppointmentsScreenProps {
 type FilterStatus = 'all' | 'confirmed' | 'completed' | 'cancelled';
 
 const statusConfig = {
-  confirmed: { label: 'Подтверждено', color: 'text-emerald-400 bg-emerald-500/10', icon: CheckCircle },
-  completed: { label: 'Завершено', color: 'text-blue-400 bg-blue-500/10', icon: CheckCircle },
-  cancelled: { label: 'Отменено', color: 'text-red-400 bg-red-500/10', icon: XCircle },
+  confirmed: { label: 'Confirmed', color: 'text-emerald-400 bg-emerald-500/10', icon: CheckCircle },
+  completed: { label: 'Completed', color: 'text-blue-400 bg-blue-500/10', icon: CheckCircle },
+  cancelled: { label: 'Cancelled', color: 'text-red-400 bg-red-500/10', icon: XCircle },
 };
 
 export default function MyAppointmentsScreen({ appointments, onAddReview }: MyAppointmentsScreenProps) {
@@ -48,8 +48,8 @@ export default function MyAppointmentsScreen({ appointments, onAddReview }: MyAp
       {/* ===== HEADER ===== */}
       <header className="sticky top-0 z-40 glass-strong safe-top">
         <div className="px-5 py-4">
-          <h1 className="text-lg font-bold">Мои записи</h1>
-          <p className="text-xs text-[var(--text-muted)]">{appointments.length} записей</p>
+          <h1 className="text-lg font-bold">My appointments</h1>
+          <p className="text-xs text-[var(--text-muted)]">{appointments.length} appointments</p>
         </div>
       </header>
 
@@ -57,10 +57,10 @@ export default function MyAppointmentsScreen({ appointments, onAddReview }: MyAp
       <div className="px-5 pt-4">
         <div className="flex gap-2 overflow-x-auto scrollbar-hide">
           {([
-            { key: 'all', label: 'Все' },
-            { key: 'confirmed', label: 'Предстоящие' },
-            { key: 'completed', label: 'Завершённые' },
-            { key: 'cancelled', label: 'Отменённые' },
+            { key: 'all', label: 'All' },
+            { key: 'confirmed', label: 'Upcoming' },
+            { key: 'completed', label: 'Completed' },
+            { key: 'cancelled', label: 'Cancelled' },
           ] as const).map((f) => (
             <button
               key={f.key}
@@ -84,8 +84,8 @@ export default function MyAppointmentsScreen({ appointments, onAddReview }: MyAp
             <div className="w-16 h-16 rounded-full bg-[var(--surface-2)] flex items-center justify-center mb-4">
               <Calendar size={28} className="text-[var(--text-muted)]" />
             </div>
-            <p className="text-[var(--text-secondary)] text-sm">Записей пока нет</p>
-            <p className="text-[var(--text-muted)] text-xs mt-1">Выберите услугу и запишитесь</p>
+            <p className="text-[var(--text-secondary)] text-sm">No appointments yet</p>
+            <p className="text-[var(--text-muted)] text-xs mt-1">Выберите servicesу и запишитесь</p>
           </div>
         ) : (
           filtered.map((appointment) => {
@@ -130,7 +130,7 @@ export default function MyAppointmentsScreen({ appointments, onAddReview }: MyAp
                       </div>
                     </div>
                     <div className="flex items-center justify-between mt-2">
-                      <span className="text-emerald-400 font-bold text-sm">{appointment.price.toLocaleString('ru')} ₽</span>
+                      <span className="text-emerald-400 font-bold text-sm">{appointment.price.toLocaleString('en-US')} ₽</span>
                       {appointment.rating && (
                         <div className="flex items-center gap-1">
                           {[...Array(5)].map((_, i) => (
@@ -162,7 +162,7 @@ export default function MyAppointmentsScreen({ appointments, onAddReview }: MyAp
                     className="w-full py-3 border-t border-white/[0.04] flex items-center justify-center gap-2 text-sm text-emerald-400 hover:bg-emerald-500/5 transition-colors"
                   >
                     <MessageSquare size={16} />
-                    Оставить отзыв
+                    Leave a review
                   </button>
                 )}
               </div>
@@ -212,7 +212,7 @@ export default function MyAppointmentsScreen({ appointments, onAddReview }: MyAp
             <textarea
               value={reviewText}
               onChange={(e) => setReviewText(e.target.value)}
-              placeholder="Расскажите о вашем опыте..."
+              placeholder="Tell us about your experience..."
               className="w-full h-28 p-4 rounded-2xl bg-[var(--surface-2)] border border-white/[0.06] text-sm resize-none placeholder:text-[var(--text-disabled)] focus:outline-none focus:border-emerald-500/50 transition-colors"
             />
 
@@ -227,7 +227,7 @@ export default function MyAppointmentsScreen({ appointments, onAddReview }: MyAp
               }`}
             >
               <Send size={16} />
-              Отправить отзыв
+              Submit review
             </button>
           </div>
         </div>
