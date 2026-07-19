@@ -94,7 +94,40 @@ export default function ConfirmationScreen({
 
           <div className="pt-4 border-t border-white/[0.04] flex items-center justify-between">
             <span className="text-[var(--text-secondary)]">Service price</span>
-            <span className="text-xl font-bold">{booking.service?.price.toLocaleString('en-US')} ₽</span>
+            <span className="text-xl font-bold">{'</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ===== CONFIRM BUTTON ===== */}
+      <div className="px-5 pt-6 space-y-3">
+        {!usesTelegramMainButton && (
+          <button
+            onClick={handleConfirm}
+            disabled={isSubmitting}
+            className={`w-full py-4 rounded-2xl font-semibold text-sm transition-all duration-200 btn-press flex items-center justify-center gap-2 ${
+              isSubmitting
+                ? 'bg-[var(--surface-3)] text-[var(--text-disabled)] cursor-not-allowed'
+                : 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25 hover:bg-emerald-600'
+            }`}
+          >
+            <Check size={18} />
+            {isSubmitting ? 'Confirming booking' : 'Confirm booking'}
+            <ArrowRight size={16} />
+          </button>
+        )}
+
+        <button
+          onClick={onHome}
+          className="w-full py-3 rounded-2xl text-sm text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  );
+}
+ + booking.service?.price.toLocaleString('en-US')}</span>
           </div>
         </div>
       </div>
