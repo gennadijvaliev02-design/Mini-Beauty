@@ -136,21 +136,7 @@ export default function ServicesScreen({ services, onServiceSelect }: ServicesSc
                 <div className="absolute bottom-0 left-0 right-0 p-3">
                   <h3 className="text-white font-semibold text-sm leading-tight">{service.name}</h3>
                   <div className="flex items-center justify-between mt-2">
-                    <span className="text-emerald-400 font-bold text-sm">{'</span>
-                    <div className="w-7 h-7 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                      <ChevronRight size={14} className="text-emerald-400" />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </button>
-          ))}
-        </div>
-      </section>
-    </div>
-  );
-}
- + service.price.toLocaleString('en-US')}</span>
+                    <span className="text-emerald-400 font-bold text-sm">{'$' + service.price.toLocaleString('en-US')}</span>
                     <div className="w-7 h-7 rounded-full bg-emerald-500/20 flex items-center justify-center">
                       <ChevronRight size={14} className="text-emerald-400" />
                     </div>
