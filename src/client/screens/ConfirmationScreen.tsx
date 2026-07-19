@@ -25,7 +25,7 @@ export default function ConfirmationScreen({
       {/* ===== HEADER ===== */}
       <header className="sticky top-0 z-40 glass-strong safe-top">
         <div className="px-5 py-4 flex items-center gap-3">
-          <h1 className="text-base font-bold">Подтверждение записи</h1>
+          <h1 className="text-base font-bold">Confirm your booking</h1>
         </div>
       </header>
 
@@ -77,7 +77,7 @@ export default function ConfirmationScreen({
               <Clock size={18} className="text-emerald-400" />
             </div>
             <div>
-              <p className="text-xs text-[var(--text-muted)]">Время</p>
+              <p className="text-xs text-[var(--text-muted)]">Time</p>
               <p className="text-sm font-semibold">{booking.time}</p>
             </div>
           </div>
@@ -87,14 +87,14 @@ export default function ConfirmationScreen({
               <Sparkles size={18} className="text-emerald-400" />
             </div>
             <div className="flex-1">
-              <p className="text-xs text-[var(--text-muted)]">Длительность</p>
-              <p className="text-sm font-semibold">{booking.service?.duration} минут</p>
+              <p className="text-xs text-[var(--text-muted)]">Duration</p>
+              <p className="text-sm font-semibold">{booking.service?.duration} minutes</p>
             </div>
           </div>
 
           <div className="pt-4 border-t border-white/[0.04] flex items-center justify-between">
-            <span className="text-[var(--text-secondary)]">Стоимость услуги</span>
-            <span className="text-xl font-bold">{booking.service?.price.toLocaleString('ru')} ₽</span>
+            <span className="text-[var(--text-secondary)]">Стоимость servicesи</span>
+            <span className="text-xl font-bold">{booking.service?.price.toLocaleString('en-US')} ₽</span>
           </div>
         </div>
       </div>
@@ -112,7 +112,7 @@ export default function ConfirmationScreen({
             }`}
           >
             <Check size={18} />
-            {isSubmitting ? 'Подтверждаем запись' : 'Подтвердить запись'}
+            {isSubmitting ? 'Confirming booking' : 'Confirm booking'}
             <ArrowRight size={16} />
           </button>
         )}
@@ -121,7 +121,7 @@ export default function ConfirmationScreen({
           onClick={onHome}
           className="w-full py-3 rounded-2xl text-sm text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
         >
-          Отменить
+          Cancel
         </button>
       </div>
     </div>
