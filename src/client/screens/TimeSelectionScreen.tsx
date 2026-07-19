@@ -62,7 +62,7 @@ export default function TimeSelectionScreen({ service, master, bookingDates, get
           <div className="text-right">
             <div className="flex items-center gap-1 text-emerald-400">
               <Clock size={14} />
-              <span className="text-sm font-bold">{service.duration} мин</span>
+              <span className="text-sm font-bold">{service.duration} min</span>
             </div>
             <span className="text-xs text-[var(--text-muted)]">{service.price.toLocaleString('en-US')} ₽</span>
           </div>
