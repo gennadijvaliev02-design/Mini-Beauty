@@ -64,7 +64,93 @@ export default function TimeSelectionScreen({ service, master, bookingDates, get
               <Clock size={14} />
               <span className="text-sm font-bold">{service.duration} min</span>
             </div>
-            <span className="text-xs text-[var(--text-muted)]">{service.price.toLocaleString('en-US')} ₽</span>
+            <span className="text-xs text-[var(--text-muted)]">{'</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ===== CALENDAR ===== */}
+      <div className="px-5 pt-6">
+        <div className="flex items-center gap-2 mb-3">
+          <CalendarDays size={18} className="text-emerald-400" />
+          <h2 className="text-base font-bold">Choose a date</h2>
+        </div>
+        <div className="flex gap-2 overflow-x-auto scrollbar-hide pb-1">
+          {bookingDates.map((day, index) => {
+            const isSelected = selectedDay === index;
+            return (
+              <button
+                key={day.id}
+                onClick={() => {
+                  setSelectedDay(index);
+                  setSelectedTime('');
+                }}
+                className={`flex-shrink-0 flex flex-col items-center justify-center w-14 h-20 rounded-2xl transition-all duration-200 btn-press ${
+                  isSelected
+                    ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25'
+                    : 'bg-[var(--surface-1)] border border-white/[0.04] text-[var(--text-secondary)]'
+                }`}
+              >
+                <span className={`text-[10px] font-medium ${isSelected ? 'text-white/80' : 'text-[var(--text-muted)]'}`}>
+                  {day.short}
+                </span>
+                <span className={`text-lg font-bold mt-1 ${isSelected ? 'text-white' : ''}`}>
+                  {day.day}
+                </span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ===== TIME SLOTS ===== */}
+      <div className="px-5 pt-6">
+        <h2 className="text-base font-bold mb-3">Available times{selectedDateLabel ? ` · ${selectedDateLabel}` : ''}</h2>
+        <div className="grid grid-cols-3 gap-2">
+          {timeSlots.length === 0 ? (
+            <div className="col-span-3 p-5 rounded-2xl bg-[var(--surface-1)] border border-white/[0.04] text-sm text-[var(--text-secondary)] text-center">
+              No available times on this date.
+            </div>
+          ) : timeSlots.map((slot) => {
+            const isSelected = selectedTime === slot.time;
+            return (
+              <button
+                key={slot.time}
+                onClick={() => slot.available && setSelectedTime(slot.time)}
+                disabled={!slot.available}
+                className={`py-3 px-4 rounded-xl text-sm font-medium transition-all duration-200 btn-press ${
+                  !slot.available
+                    ? 'bg-[var(--surface-1)] text-[var(--text-disabled)] cursor-not-allowed border border-white/[0.02]'
+                    : isSelected
+                    ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25'
+                    : 'bg-[var(--surface-2)] text-[var(--text-primary)] border border-white/[0.06] hover:border-emerald-500/30 hover:bg-emerald-500/5'
+                }`}
+              >
+                {slot.time}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* ===== CONFIRM BUTTON ===== */}
+      <div className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] z-40 p-5 glass-strong border-t border-white/[0.06]">
+        <button
+          onClick={handleConfirm}
+          disabled={!selectedTime}
+          className={`w-full py-4 rounded-2xl font-semibold text-sm transition-all duration-200 btn-press ${
+            selectedTime
+              ? 'bg-emerald-500 text-white shadow-lg shadow-emerald-500/25 hover:bg-emerald-600'
+              : 'bg-[var(--surface-3)] text-[var(--text-disabled)] cursor-not-allowed'
+          }`}
+        >
+          {selectedTime ? `Confirm booking · ${service.price.toLocaleString('en-US')}` : 'Choose a time'}
+        </button>
+      </div>
+    </div>
+  );
+}
+ + service.price.toLocaleString('en-US')}</span>
           </div>
         </div>
       </div>
