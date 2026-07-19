@@ -52,7 +52,7 @@ export default function ConfirmationScreen({
               <User size={18} className="text-emerald-400" />
             </div>
             <div className="flex-1">
-              <p className="text-xs text-[var(--text-muted)]">Мастер</p>
+              <p className="text-xs text-[var(--text-muted)]">Professional</p>
               <p className="text-sm font-semibold">{booking.master?.name}</p>
             </div>
             <img
@@ -67,7 +67,7 @@ export default function ConfirmationScreen({
               <Calendar size={18} className="text-emerald-400" />
             </div>
             <div>
-              <p className="text-xs text-[var(--text-muted)]">Дата</p>
+              <p className="text-xs text-[var(--text-muted)]">Date</p>
               <p className="text-sm font-semibold">{booking.dateLabel || booking.date}</p>
             </div>
           </div>
@@ -93,7 +93,7 @@ export default function ConfirmationScreen({
           </div>
 
           <div className="pt-4 border-t border-white/[0.04] flex items-center justify-between">
-            <span className="text-[var(--text-secondary)]">Стоимость servicesи</span>
+            <span className="text-[var(--text-secondary)]">Стоимость service</span>
             <span className="text-xl font-bold">{booking.service?.price.toLocaleString('en-US')} ₽</span>
           </div>
         </div>
