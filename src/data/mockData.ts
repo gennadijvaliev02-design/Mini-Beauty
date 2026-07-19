@@ -254,8 +254,8 @@ export const promoBanners = [
 
 export const weekDays = [
   { short: 'Mon', full: 'Monday', date: '23.06' },
-  { short: 'Tue', full: 'Tueорник', date: '24.06' },
-  { short: 'Wed', full: 'Wedеда', date: '25.06' },
+  { short: 'Tue', full: 'Tuesday', date: '24.06' },
+  { short: 'Wed', full: 'Wednesday', date: '25.06' },
   { short: 'Thu', full: 'Thursday', date: '26.06' },
   { short: 'Fri', full: 'Friday', date: '27.06' },
   { short: 'Sat', full: 'Saturday', date: '28.06' },
@@ -291,14 +291,14 @@ export const revenueData: RevenueData[] = [
 ];
 
 export const adminAppointments: AdminAppointment[] = [
-  { id: 'r1', clientName: 'Ирина К.', clientPhone: '+7 (999) 123-45-67', service: 'Women's haircut', master: 'Анна К.', date: '25.06.2026', time: '10:00', status: 'confirmed', price: 2500 },
-  { id: 'r2', clientName: 'Ольга М.', clientPhone: '+7 (999) 234-56-78', service: 'Hair coloring', master: 'Мария С.', date: '25.06.2026', time: '11:00', status: 'confirmed', price: 5500 },
-  { id: 'r3', clientName: 'Наталья П.', clientPhone: '+7 (999) 345-67-89', service: 'Manicure + gel polish', master: 'Елена П.', date: '25.06.2026', time: '12:30', status: 'confirmed', price: 1800 },
-  { id: 'r4', clientName: 'Екатерина В.', clientPhone: '+7 (999) 456-78-90', service: 'Hair styling', master: 'Анна К.', date: '25.06.2026', time: '14:00', status: 'completed', price: 1500 },
-  { id: 'r5', clientName: 'Анна С.', clientPhone: '+7 (999) 567-89-01', service: 'SPA pedicure', master: 'Елена П.', date: '25.06.2026', time: '15:30', status: 'confirmed', price: 2200 },
-  { id: 'r6', clientName: 'Марина Д.', clientPhone: '+7 (999) 678-90-12', service: 'Lash lift', master: 'Дарья М.', date: '25.06.2026', time: '16:00', status: 'cancelled', price: 1200 },
-  { id: 'r7', clientName: 'Татьяна Л.', clientPhone: '+7 (999) 789-01-23', service: 'Facial spa treatment', master: 'София В.', date: '26.06.2026', time: '10:00', status: 'confirmed', price: 3200 },
-  { id: 'r8', clientName: 'Светлана Р.', clientPhone: '+7 (999) 890-12-34', service: 'Brow shaping', master: 'Дарья М.', date: '26.06.2026', time: '11:30', status: 'confirmed', price: 900 },
+  { id: 'r1', clientName: 'Irina K.', clientPhone: '+7 (999) 123-45-67', service: 'Women's haircut', master: 'Anna K.', date: '25.06.2026', time: '10:00', status: 'confirmed', price: 2500 },
+  { id: 'r2', clientName: 'Olga M.', clientPhone: '+7 (999) 234-56-78', service: 'Hair coloring', master: 'Maria S.', date: '25.06.2026', time: '11:00', status: 'confirmed', price: 5500 },
+  { id: 'r3', clientName: 'Natalia P.', clientPhone: '+7 (999) 345-67-89', service: 'Manicure + gel polish', master: 'Elena P.', date: '25.06.2026', time: '12:30', status: 'confirmed', price: 1800 },
+  { id: 'r4', clientName: 'Ekaterina V.', clientPhone: '+7 (999) 456-78-90', service: 'Hair styling', master: 'Anna K.', date: '25.06.2026', time: '14:00', status: 'completed', price: 1500 },
+  { id: 'r5', clientName: 'Anna S.', clientPhone: '+7 (999) 567-89-01', service: 'SPA pedicure', master: 'Elena P.', date: '25.06.2026', time: '15:30', status: 'confirmed', price: 2200 },
+  { id: 'r6', clientName: 'Marina D.', clientPhone: '+7 (999) 678-90-12', service: 'Lash lift', master: 'Daria M.', date: '25.06.2026', time: '16:00', status: 'cancelled', price: 1200 },
+  { id: 'r7', clientName: 'Tatiana L.', clientPhone: '+7 (999) 789-01-23', service: 'Facial spa treatment', master: 'Sofia V.', date: '26.06.2026', time: '10:00', status: 'confirmed', price: 3200 },
+  { id: 'r8', clientName: 'Svetlana R.', clientPhone: '+7 (999) 890-12-34', service: 'Brow shaping', master: 'Daria M.', date: '26.06.2026', time: '11:30', status: 'confirmed', price: 900 },
 ];
 
 export const dashboardStats = {
