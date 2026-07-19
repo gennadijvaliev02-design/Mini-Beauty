@@ -8,8 +8,8 @@ interface BottomNavProps {
 
 export default function BottomNav({ currentScreen, onNavigate }: BottomNavProps) {
   const tabs: { screen: Screen; label: string; icon: typeof Scissors }[] = [
-    { screen: 'services', label: 'Услуги', icon: Scissors },
-    { screen: 'myAppointments', label: 'Мои записи', icon: Calendar },
+    { screen: 'services', label: 'Services', icon: Scissors },
+    { screen: 'myAppointments', label: 'My appointments', icon: Calendar },
   ];
 
   return (
