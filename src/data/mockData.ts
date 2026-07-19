@@ -4,84 +4,84 @@ import { publicAsset } from '@/lib/assets';
 export const services: Service[] = [
   {
     id: '1',
-    name: 'Женская стрижка',
-    description: 'Стильная стрижка с учётом формы лица и типа волос. Включает мытьё головы, укладку и консультацию по уходу.',
+    name: 'Women's haircut',
+    description: 'A stylish haircut tailored to your face shape and hair type. Includes a wash, styling and care consultation.',
     price: 2500,
     duration: 60,
     image: publicAsset('assets/service-haircut.jpg'),
-    category: 'Волосы'
+    category: 'Hair'
   },
   {
     id: '2',
-    name: 'Окрашивание',
-    description: 'Полное окрашивание волос с использованием премиальных красителей. Включает консультацию по цвету и уход после процедуры.',
+    name: 'Hair coloring',
+    description: 'Full hair coloring with premium products. Includes color consultation and aftercare guidance.',
     price: 5500,
     duration: 150,
     image: publicAsset('assets/service-coloring.jpg'),
-    category: 'Волосы'
+    category: 'Hair'
   },
   {
     id: '3',
-    name: 'Маникюр + покрытие',
-    description: 'Классический маникюр с нанесением долговременного лака или гель-лака. Включает обработку кутикулы и выравнивание ногтевой пластины.',
+    name: 'Manicure + gel polish',
+    description: 'Classic manicure with long-lasting polish or gel polish. Includes cuticle care and nail plate leveling.',
     price: 1800,
     duration: 75,
     image: publicAsset('assets/service-manicure.jpg'),
-    category: 'Ногти'
+    category: 'Nails'
   },
   {
     id: '4',
-    name: 'Педикюр SPA',
-    description: 'Комплексный SPA-педикюр с пилингом, маской и массажем стоп. Идеальный уход для красоты и здоровья ногтей.',
+    name: 'SPA pedicure',
+    description: 'A complete spa pedicure with exfoliation, a mask and foot massage. Ideal care for healthy, beautiful nails.',
     price: 2200,
     duration: 90,
     image: publicAsset('assets/service-pedicure.jpg'),
-    category: 'Ногти'
+    category: 'Nails'
   },
   {
     id: '5',
-    name: 'Укладка волос',
-    description: 'Праздничная или повседневная укладка с использованием профессиональных стайлинговых средств. Локоны, гладкость или объём.',
+    name: 'Hair styling',
+    description: 'A professional blowout or styling for any occasion. Choose from waves, sleek looks or added volume.',
     price: 1500,
     duration: 45,
     image: publicAsset('assets/service-styling.jpg'),
-    category: 'Волосы'
+    category: 'Hair'
   },
   {
     id: '6',
-    name: 'Ламинирование ресниц',
-    description: 'Процедура для создания эффекта длинных и густых ресниц без наращивания. Результат сохраняется до 8 недель.',
+    name: 'Lash lift',
+    description: 'A treatment that creates longer, fuller-looking lashes without extensions. Results last up to 8 weeks.',
     price: 1200,
     duration: 60,
     image: publicAsset('assets/service-lashes.jpg'),
-    category: 'Брови и ресницы'
+    category: 'Brows & lashes'
   },
   {
     id: '7',
-    name: 'Коррекция бровей',
-    description: 'Идеальная форма бровей с учётом типа лица. Включает окрашивание хной или краской и укладку специальным воском.',
+    name: 'Brow shaping',
+    description: 'A brow shape tailored to your face. Includes tinting with henna or color and styling with brow wax.',
     price: 900,
     duration: 40,
     image: publicAsset('assets/service-brows.jpg'),
-    category: 'Брови и ресницы'
+    category: 'Brows & lashes'
   },
   {
     id: '8',
-    name: 'Спа-уход для лица',
-    description: 'Глубокое очищение, пилинг и увлажнение кожи лица с использованием профессиональной косметики. Расслабляющий массаж включён.',
+    name: 'Facial spa treatment',
+    description: 'Deep cleansing, exfoliation and hydration with professional skincare products. A relaxing facial massage is included.',
     price: 3200,
     duration: 75,
     image: publicAsset('assets/service-facial.jpg'),
-    category: 'Уход'
+    category: 'Skincare'
   }
 ];
 
 export const masters: Master[] = [
   {
     id: 'm1',
-    name: 'Анна Козлова',
+    name: 'Anna Kozlova',
     avatar: publicAsset('assets/master-anna.jpg'),
-    specialization: 'Стилист-универсал',
+    specialization: 'Hair stylist',
     rating: 4.9,
     reviewsCount: 127,
     serviceIds: ['1', '5'],
@@ -97,9 +97,9 @@ export const masters: Master[] = [
   },
   {
     id: 'm2',
-    name: 'Мария Соколова',
+    name: 'Maria Sokolova',
     avatar: publicAsset('assets/master-maria.jpg'),
-    specialization: 'Колорист',
+    specialization: 'Colorist',
     rating: 4.8,
     reviewsCount: 98,
     serviceIds: ['1', '2', '5'],
@@ -115,9 +115,9 @@ export const masters: Master[] = [
   },
   {
     id: 'm3',
-    name: 'Елена Петрова',
+    name: 'Elena Petrova',
     avatar: publicAsset('assets/master-elena.jpg'),
-    specialization: 'Мастер маникюра',
+    specialization: 'Nail artist',
     rating: 4.9,
     reviewsCount: 156,
     serviceIds: ['3', '4'],
@@ -133,9 +133,9 @@ export const masters: Master[] = [
   },
   {
     id: 'm4',
-    name: 'Дарья Морозова',
+    name: 'Daria Morozova',
     avatar: publicAsset('assets/master-daria.jpg'),
-    specialization: 'Бровист / Лэшмейкер',
+    specialization: 'Brow & lash artist',
     rating: 4.7,
     reviewsCount: 84,
     serviceIds: ['6', '7'],
@@ -151,9 +151,9 @@ export const masters: Master[] = [
   },
   {
     id: 'm5',
-    name: 'София Волкова',
+    name: 'Sofia Volkova',
     avatar: publicAsset('assets/master-sofia.jpg'),
-    specialization: 'Косметолог',
+    specialization: 'Esthetician',
     rating: 4.8,
     reviewsCount: 112,
     serviceIds: ['8'],
@@ -173,10 +173,10 @@ export const myAppointments: Appointment[] = [
   {
     id: 'a1',
     serviceId: '1',
-    serviceName: 'Женская стрижка',
+    serviceName: 'Women's haircut',
     serviceImage: publicAsset('assets/service-haircut.jpg'),
     masterId: 'm1',
-    masterName: 'Анна Козлова',
+    masterName: 'Anna Kozlova',
     masterAvatar: publicAsset('assets/master-anna.jpg'),
     date: '2026-06-28',
     time: '14:00',
@@ -186,25 +186,25 @@ export const myAppointments: Appointment[] = [
   {
     id: 'a2',
     serviceId: '3',
-    serviceName: 'Маникюр + покрытие',
+    serviceName: 'Manicure + gel polish',
     serviceImage: publicAsset('assets/service-manicure.jpg'),
     masterId: 'm3',
-    masterName: 'Елена Петрова',
+    masterName: 'Elena Petrova',
     masterAvatar: publicAsset('assets/master-elena.jpg'),
     date: '2026-06-15',
     time: '11:00',
     price: 1800,
     status: 'completed',
     rating: 5,
-    review: 'Отличный мастер! Очень довольна результатом, маникюр держится уже третью неделю.'
+    review: 'Excellent professional! I am very happy with the result — my manicure has lasted three weeks already.'
   },
   {
     id: 'a3',
     serviceId: '6',
-    serviceName: 'Ламинирование ресниц',
+    serviceName: 'Lash lift',
     serviceImage: publicAsset('assets/service-lashes.jpg'),
     masterId: 'm4',
-    masterName: 'Дарья Морозова',
+    masterName: 'Daria Morozova',
     masterAvatar: publicAsset('assets/master-daria.jpg'),
     date: '2026-06-10',
     time: '16:30',
@@ -214,52 +214,52 @@ export const myAppointments: Appointment[] = [
   {
     id: 'a4',
     serviceId: '8',
-    serviceName: 'Спа-уход для лица',
+    serviceName: 'Facial spa treatment',
     serviceImage: publicAsset('assets/service-facial.jpg'),
     masterId: 'm5',
-    masterName: 'София Волкова',
+    masterName: 'Sofia Volkova',
     masterAvatar: publicAsset('assets/master-sofia.jpg'),
     date: '2026-06-05',
     time: '13:00',
     price: 3200,
     status: 'completed',
     rating: 4,
-    review: 'Хорошая процедура, кожа стала заметно увлажнённой.'
+    review: 'Great treatment — my skin feels noticeably more hydrated.'
   }
 ];
 
 export const promoBanners = [
   {
     id: 'b1',
-    title: 'Скидка 20% на окрашивание',
-    subtitle: 'До конца июня',
+    title: '20% off hair coloring',
+    subtitle: 'Through the end of June',
     color: 'from-emerald-600/90 to-teal-700/90',
     textColor: 'text-white'
   },
   {
     id: 'b2',
-    title: 'SPA-день для двоих',
-    subtitle: 'Комплексный уход со скидкой 15%',
+    title: 'Spa day for two',
+    subtitle: 'Complete care with 15% off',
     color: 'from-emerald-700/90 to-green-800/90',
     textColor: 'text-white'
   },
   {
     id: 'b3',
-    title: 'Первое ламинирование',
-    subtitle: '-500₽ для новых клиентов',
+    title: 'Your first lash lift',
+    subtitle: '$10 off for new clients',
     color: 'from-teal-600/90 to-emerald-700/90',
     textColor: 'text-white'
   }
 ];
 
 export const weekDays = [
-  { short: 'Пн', full: 'Понедельник', date: '23.06' },
-  { short: 'Вт', full: 'Вторник', date: '24.06' },
-  { short: 'Ср', full: 'Среда', date: '25.06' },
-  { short: 'Чт', full: 'Четверг', date: '26.06' },
-  { short: 'Пт', full: 'Пятница', date: '27.06' },
-  { short: 'Сб', full: 'Суббота', date: '28.06' },
-  { short: 'Вс', full: 'Воскресенье', date: '29.06' },
+  { short: 'Mon', full: 'Monday', date: '23.06' },
+  { short: 'Tue', full: 'Tueорник', date: '24.06' },
+  { short: 'Wed', full: 'Wedеда', date: '25.06' },
+  { short: 'Thu', full: 'Thursday', date: '26.06' },
+  { short: 'Fri', full: 'Friday', date: '27.06' },
+  { short: 'Sat', full: 'Saturday', date: '28.06' },
+  { short: 'Sun', full: 'Sunday', date: '29.06' },
 ];
 
 export const generateTimeSlots = (): { time: string; available: boolean }[] => {
@@ -281,24 +281,24 @@ export const generateTimeSlots = (): { time: string; available: boolean }[] => {
 // ==================== ADMIN DATA ====================
 
 export const revenueData: RevenueData[] = [
-  { day: 'Пн', revenue: 12500, appointments: 8 },
-  { day: 'Вт', revenue: 15800, appointments: 11 },
-  { day: 'Ср', revenue: 11200, appointments: 7 },
-  { day: 'Чт', revenue: 18900, appointments: 13 },
-  { day: 'Пт', revenue: 22100, appointments: 15 },
-  { day: 'Сб', revenue: 26400, appointments: 18 },
-  { day: 'Вс', revenue: 8900, appointments: 6 },
+  { day: 'Mon', revenue: 12500, appointments: 8 },
+  { day: 'Tue', revenue: 15800, appointments: 11 },
+  { day: 'Wed', revenue: 11200, appointments: 7 },
+  { day: 'Thu', revenue: 18900, appointments: 13 },
+  { day: 'Fri', revenue: 22100, appointments: 15 },
+  { day: 'Sat', revenue: 26400, appointments: 18 },
+  { day: 'Sun', revenue: 8900, appointments: 6 },
 ];
 
 export const adminAppointments: AdminAppointment[] = [
-  { id: 'r1', clientName: 'Ирина К.', clientPhone: '+7 (999) 123-45-67', service: 'Женская стрижка', master: 'Анна К.', date: '25.06.2026', time: '10:00', status: 'confirmed', price: 2500 },
-  { id: 'r2', clientName: 'Ольга М.', clientPhone: '+7 (999) 234-56-78', service: 'Окрашивание', master: 'Мария С.', date: '25.06.2026', time: '11:00', status: 'confirmed', price: 5500 },
-  { id: 'r3', clientName: 'Наталья П.', clientPhone: '+7 (999) 345-67-89', service: 'Маникюр + покрытие', master: 'Елена П.', date: '25.06.2026', time: '12:30', status: 'confirmed', price: 1800 },
-  { id: 'r4', clientName: 'Екатерина В.', clientPhone: '+7 (999) 456-78-90', service: 'Укладка волос', master: 'Анна К.', date: '25.06.2026', time: '14:00', status: 'completed', price: 1500 },
-  { id: 'r5', clientName: 'Анна С.', clientPhone: '+7 (999) 567-89-01', service: 'Педикюр SPA', master: 'Елена П.', date: '25.06.2026', time: '15:30', status: 'confirmed', price: 2200 },
-  { id: 'r6', clientName: 'Марина Д.', clientPhone: '+7 (999) 678-90-12', service: 'Ламинирование ресниц', master: 'Дарья М.', date: '25.06.2026', time: '16:00', status: 'cancelled', price: 1200 },
-  { id: 'r7', clientName: 'Татьяна Л.', clientPhone: '+7 (999) 789-01-23', service: 'Спа-уход для лица', master: 'София В.', date: '26.06.2026', time: '10:00', status: 'confirmed', price: 3200 },
-  { id: 'r8', clientName: 'Светлана Р.', clientPhone: '+7 (999) 890-12-34', service: 'Коррекция бровей', master: 'Дарья М.', date: '26.06.2026', time: '11:30', status: 'confirmed', price: 900 },
+  { id: 'r1', clientName: 'Ирина К.', clientPhone: '+7 (999) 123-45-67', service: 'Women's haircut', master: 'Анна К.', date: '25.06.2026', time: '10:00', status: 'confirmed', price: 2500 },
+  { id: 'r2', clientName: 'Ольга М.', clientPhone: '+7 (999) 234-56-78', service: 'Hair coloring', master: 'Мария С.', date: '25.06.2026', time: '11:00', status: 'confirmed', price: 5500 },
+  { id: 'r3', clientName: 'Наталья П.', clientPhone: '+7 (999) 345-67-89', service: 'Manicure + gel polish', master: 'Елена П.', date: '25.06.2026', time: '12:30', status: 'confirmed', price: 1800 },
+  { id: 'r4', clientName: 'Екатерина В.', clientPhone: '+7 (999) 456-78-90', service: 'Hair styling', master: 'Анна К.', date: '25.06.2026', time: '14:00', status: 'completed', price: 1500 },
+  { id: 'r5', clientName: 'Анна С.', clientPhone: '+7 (999) 567-89-01', service: 'SPA pedicure', master: 'Елена П.', date: '25.06.2026', time: '15:30', status: 'confirmed', price: 2200 },
+  { id: 'r6', clientName: 'Марина Д.', clientPhone: '+7 (999) 678-90-12', service: 'Lash lift', master: 'Дарья М.', date: '25.06.2026', time: '16:00', status: 'cancelled', price: 1200 },
+  { id: 'r7', clientName: 'Татьяна Л.', clientPhone: '+7 (999) 789-01-23', service: 'Facial spa treatment', master: 'София В.', date: '26.06.2026', time: '10:00', status: 'confirmed', price: 3200 },
+  { id: 'r8', clientName: 'Светлана Р.', clientPhone: '+7 (999) 890-12-34', service: 'Brow shaping', master: 'Дарья М.', date: '26.06.2026', time: '11:30', status: 'confirmed', price: 900 },
 ];
 
 export const dashboardStats = {
@@ -308,4 +308,4 @@ export const dashboardStats = {
   averageRating: 4.8,
 };
 
-export const serviceCategories = ['Все', 'Волосы', 'Ногти', 'Брови и ресницы', 'Уход'];
+export const serviceCategories = ['All', 'Hair', 'Nails', 'Brows & lashes', 'Skincare'];
