@@ -16,24 +16,64 @@ export interface ClientMockData {
   slots: SlotRecord[];
 }
 
-const withPublicAssets = (): ClientMockData => ({
-  services: rawData.services.map(service => ({
-    ...service,
-    image: publicAsset(service.image),
-  })),
-  masters: rawData.masters.map(master => ({
-    ...master,
-    avatar: publicAsset(master.avatar),
-  })),
-  bookingDates: rawData.bookingDates,
-  appointments: rawData.appointments.map(appointment => ({
-    ...appointment,
-    status: appointment.status as Appointment['status'],
-    serviceImage: publicAsset(appointment.serviceImage),
-    masterAvatar: publicAsset(appointment.masterAvatar),
-  })),
-  slots: rawData.slots,
-});
+const buildBookingDates = (): BookingDate[] => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  return Array.from({ length: 14 }, (_, index) => {
+    const date = new Date(today);
+    date.setDate(today.getDate() + index);
+
+    const iso = [
+      date.getFullYear(),
+      String(date.getMonth() + 1).padStart(2, '0'),
+      String(date.getDate()).padStart(2, '0'),
+    ].join('-');
+
+    return {
+      id: `date_${iso}`,
+      iso,
+      short: date.toLocaleDateString('en-US', { weekday: 'short' }),
+      day: String(date.getDate()),
+      label: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+    };
+  });
+};
+
+const buildSlots = (masters: Master[], bookingDates: BookingDate[]): SlotRecord[] => {
+  const demoTimes = ['09:00', '10:30', '12:00', '14:00', '15:30', '17:00'];
+
+  return masters.flatMap(master =>
+    bookingDates.map(date => ({
+      masterId: master.id,
+      date: date.iso,
+      times: demoTimes,
+    })),
+  );
+};
+
+const withPublicAssets = (): ClientMockData => {
+  const bookingDates = buildBookingDates();
+
+  return {
+    services: rawData.services.map(service => ({
+      ...service,
+      image: publicAsset(service.image),
+    })),
+    masters: rawData.masters.map(master => ({
+      ...master,
+      avatar: publicAsset(master.avatar),
+    })),
+    bookingDates,
+    appointments: rawData.appointments.map(appointment => ({
+      ...appointment,
+      status: appointment.status as Appointment['status'],
+      serviceImage: publicAsset(appointment.serviceImage),
+      masterAvatar: publicAsset(appointment.masterAvatar),
+    })),
+    slots: buildSlots(rawData.masters, bookingDates),
+  };
+};
 
 export const loadClientMockData = async (): Promise<ClientMockData> => withPublicAssets();
 
