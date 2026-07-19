@@ -62,7 +62,7 @@ export default function ServiceDetailScreen({ service, masters, onBack, onMaster
         <div className="space-y-3">
           {masters.length === 0 ? (
             <div className="p-5 rounded-2xl bg-[var(--surface-1)] border border-white/[0.04] text-sm text-[var(--text-secondary)]">
-              Для этой service пока нет доступных мастеров.
+              No professionals are available for this service yet.
             </div>
           ) : masters.map((master) => (
             <button
