@@ -255,7 +255,7 @@ export default function ClientApp() {
       return;
     }
 
-    mainButton.setText(`Confirm · ${bookingPayload.price.toLocaleString('en-US')}`);
+    mainButton.setText(`Confirm · $${bookingPayload.price.toLocaleString('en-US')}`);
     mainButton.show();
 
     if (isSubmitting) {
