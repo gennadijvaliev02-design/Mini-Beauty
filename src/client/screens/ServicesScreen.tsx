@@ -131,7 +131,7 @@ export default function ServicesScreen({ services, onServiceSelect }: ServicesSc
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                 <div className="absolute top-2 right-2 bg-black/40 backdrop-blur-md rounded-lg px-2 py-1 flex items-center gap-1">
                   <Clock size={10} className="text-emerald-400" />
-                  <span className="text-[10px] text-white font-medium">{service.duration} мин</span>
+                  <span className="text-[10px] text-white font-medium">{service.duration} min</span>
                 </div>
                 <div className="absolute bottom-0 left-0 right-0 p-3">
                   <h3 className="text-white font-semibold text-sm leading-tight">{service.name}</h3>
